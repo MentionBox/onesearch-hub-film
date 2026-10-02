@@ -1,0 +1,296 @@
+{
+ "one-box": [
+  {
+   "text": "Search used to live in one box.",
+   "dur": 2.703
+  }
+ ],
+ "everywhere": [
+  {
+   "text": "Search is everywhere.",
+   "dur": 1.819
+  },
+  {
+   "text": "ChatGPT.",
+   "dur": 1.266
+  },
+  {
+   "text": "TikTok.",
+   "dur": 0.75
+  },
+  {
+   "text": "Amazon.",
+   "dur": 0.868
+  }
+ ],
+ "pieces": [
+  {
+   "text": "Your data, scattered.",
+   "dur": 1.662
+  },
+  {
+   "text": "Your teams, siloed.",
+   "dur": 1.616
+  },
+  {
+   "text": "Where’s the opportunity?",
+   "dur": 1.453
+  },
+  {
+   "text": "Who owns it?",
+   "dur": 0.865
+  },
+  {
+   "text": "Did it work?",
+   "dur": 0.82
+  }
+ ],
+ "intro": [
+  {
+   "text": "Introducing OneSearch Hub.",
+   "dur": 1.913
+  }
+ ],
+ "overview": [
+  {
+   "text": "Every platform.",
+   "dur": 1.254
+  },
+  {
+   "text": "Every team.",
+   "dur": 1.158
+  },
+  {
+   "text": "Every result.",
+   "dur": 1.055
+  },
+  {
+   "text": "Your Search, on one screen.",
+   "dur": 2.294
+  }
+ ],
+ "six": [
+  {
+   "text": "Six moves.",
+   "dur": 1.405
+  },
+  {
+   "text": "One circle.",
+   "dur": 1.204
+  }
+ ],
+ "collect": [
+  {
+   "text": "Collect.",
+   "dur": 0.653
+  },
+  {
+   "text": "Search Console.",
+   "dur": 1.039
+  },
+  {
+   "text": "Analytics.",
+   "dur": 0.793
+  },
+  {
+   "text": "AI answers.",
+   "dur": 1.276
+  },
+  {
+   "text": "Social.",
+   "dur": 0.675
+  },
+  {
+   "text": "Marketplaces.",
+   "dur": 1.087
+  },
+  {
+   "text": "All your Search data.",
+   "dur": 1.316
+  },
+  {
+   "text": "One place.",
+   "dur": 0.937
+  }
+ ],
+ "rank": [
+  {
+   "text": "Identify.",
+   "dur": 1.029
+  },
+  {
+   "text": "Thousands of signals.",
+   "dur": 1.912
+  },
+  {
+   "text": "One ranking.",
+   "dur": 1.031
+  }
+ ],
+ "score": [
+  {
+   "text": "The Opportunity Score.",
+   "dur": 1.59
+  },
+  {
+   "text": "Here’s where you win.",
+   "dur": 1.567
+  }
+ ],
+ "recommend": [
+  {
+   "text": "Recommend.",
+   "dur": 0.952
+  },
+  {
+   "text": "Google.",
+   "dur": 0.671
+  },
+  {
+   "text": "AI answers.",
+   "dur": 1.572
+  },
+  {
+   "text": "TikTok.",
+   "dur": 0.693
+  },
+  {
+   "text": "Amazon.",
+   "dur": 0.877
+  },
+  {
+   "text": "Every opportunity, turned into action.",
+   "dur": 2.84
+  }
+ ],
+ "ai-answer": [
+  {
+   "text": "See who gets cited.",
+   "dur": 1.408
+  },
+  {
+   "text": "Take their place.",
+   "dur": 1.151
+  }
+ ],
+ "coordinate": [
+  {
+   "text": "Coordinate.",
+   "dur": 0.746
+  },
+  {
+   "text": "Every action gets an owner.",
+   "dur": 1.979
+  },
+  {
+   "text": "Every team.",
+   "dur": 1.184
+  },
+  {
+   "text": "Your agencies, too.",
+   "dur": 1.728
+  }
+ ],
+ "timeline": [
+  {
+   "text": "One plan.",
+   "dur": 1.103
+  },
+  {
+   "text": "Nothing slips.",
+   "dur": 1.311
+  }
+ ],
+ "launch": [
+  {
+   "text": "Launch.",
+   "dur": 0.703
+  },
+  {
+   "text": "Brief it.",
+   "dur": 0.53
+  },
+  {
+   "text": "Create it.",
+   "dur": 0.774
+  },
+  {
+   "text": "Approve it.",
+   "dur": 0.763
+  },
+  {
+   "text": "Ship it.",
+   "dur": 0.575
+  }
+ ],
+ "formats": [
+  {
+   "text": "First drafts, for every platform.",
+   "dur": 2.36
+  }
+ ],
+ "evaluate": [
+  {
+   "text": "Evaluate.",
+   "dur": 0.955
+  },
+  {
+   "text": "Visibility, up.",
+   "dur": 1.425
+  },
+  {
+   "text": "Traffic, up.",
+   "dur": 1.181
+  },
+  {
+   "text": "Conversions, up.",
+   "dur": 1.52
+  }
+ ],
+ "traced": [
+  {
+   "text": "Every action, traced to its impact.",
+   "dur": 2.785
+  }
+ ],
+ "report": [
+  {
+   "text": "Share it.",
+   "dur": 0.766
+  },
+  {
+   "text": "In one click.",
+   "dur": 1.107
+  }
+ ],
+ "circle": [
+  {
+   "text": "Every result feeds the next circle.",
+   "dur": 2.654
+  }
+ ],
+ "onehub": [
+  {
+   "text": "OneSearch Hub.",
+   "dur": 1.182
+  },
+  {
+   "text": "One Search.",
+   "dur": 1.218
+  },
+  {
+   "text": "One Hub.",
+   "dur": 1.153
+  }
+ ],
+ "cta": [
+  {
+   "text": "The brands that move first will own Search.",
+   "dur": 3.012
+  },
+  {
+   "text": "Be one of them.",
+   "dur": 0.995
+  }
+ ]
+}

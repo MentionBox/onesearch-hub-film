@@ -1,0 +1,1209 @@
+<title>OneSearch Hub Storyboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap">
+<style>
+@font-face{font-family:"Swiza";src:url("fonts/Swiza-Medium.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Swiza";src:url("fonts/Swiza-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"General Sans";src:url("fonts/GeneralSans-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"General Sans";src:url("fonts/GeneralSans-Medium.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"General Sans";src:url("fonts/GeneralSans-Semibold.woff2") format("woff2");font-weight:600;font-display:swap}
+
+/* Storyboard : une planche = l'image du film (1280 × 720, mise à l'échelle) + ses notes.
+   Les images du film gardent leurs couleurs propres : ce sont des plans, pas de l'interface. */
+:root{
+  --bg:#F7F8FF; --fg:#120050; --card:#FFFFFF; --muted:#5B5878; --line:rgba(18,0,80,.12);
+  --sunken:#EDEFFA; --brand:#328BFF; --action:#1B0AB0; --rule:#52B7FF;
+  --sim-bg:#FFF2D6; --sim-fg:#7A4A00; --part-bg:rgba(50,139,255,.12); --part-fg:#1B0AB0;
+  --tc-bg:#EDEFFA; --tc-fg:#5B5878; --shadow:0 1px 2px rgba(18,0,80,.05),0 18px 40px -24px rgba(18,0,80,.35);
+  --f-display:"Swiza","General Sans",ui-sans-serif,system-ui,sans-serif;
+  --f-text:"General Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B0620; --fg:#F1F3FF; --card:#191244; --muted:#A9A6C9; --line:rgba(241,243,255,.13);
+  --sunken:#120C36; --brand:#52B7FF; --action:#7CC8FF; --rule:#52B7FF;
+  --sim-bg:#3D2C08; --sim-fg:#FFD58A; --part-bg:rgba(82,183,255,.16); --part-fg:#A9DBFF;
+  --tc-bg:#221A5C; --tc-fg:#C9C6E6; --shadow:0 1px 2px rgba(0,0,0,.3),0 18px 40px -24px rgba(0,0,0,.8); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B0620; --fg:#F1F3FF; --card:#191244; --muted:#A9A6C9; --line:rgba(241,243,255,.13);
+  --sunken:#120C36; --brand:#52B7FF; --action:#7CC8FF; --rule:#52B7FF;
+  --sim-bg:#3D2C08; --sim-fg:#FFD58A; --part-bg:rgba(82,183,255,.16); --part-fg:#A9DBFF;
+  --tc-bg:#221A5C; --tc-fg:#C9C6E6; --shadow:0 1px 2px rgba(0,0,0,.3),0 18px 40px -24px rgba(0,0,0,.8); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--f-text);margin:0;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--f-display);font-weight:500;letter-spacing:-.03em;text-wrap:balance;margin:0}
+a{color:var(--action)}
+code{font-family:var(--f-mono);font-size:.86em}
+.wrap{max-width:1320px;margin:0 auto;padding-inline:24px;padding-block:28px 96px}
+@media (max-width:600px){.wrap{padding-inline:16px}}
+.lbl{margin:0 0 6px;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:500}
+
+/* ——— Couverture du document : l'aplat indigo du rapport client ——— */
+.cover{background:#120050;color:#F1F3FF;border-radius:16px;padding:40px 44px 36px;position:relative;overflow:hidden}
+.cover::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 92% -10%,rgba(82,183,255,.38),rgba(82,183,255,0) 55%),radial-gradient(circle at -5% 120%,rgba(27,10,176,.7),rgba(27,10,176,0) 60%)}
+.cover>*{position:relative;z-index:1}
+.cover .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#52B7FF;margin:0 0 18px;font-weight:500}
+.lockup{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.lockup .mark{width:64px;height:64px;flex:none}
+.lockup h1{font-size:clamp(40px,6vw,72px);line-height:1;color:#FFFFFF}
+.by{display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(241,243,255,.7);margin-top:10px}
+.by svg{width:110px;height:15px;color:#FFFFFF}
+.cover .lead{max-width:62ch;margin:22px 0 0;color:rgba(241,243,255,.84);font-size:17px}
+.kpis-doc{display:flex;flex-wrap:wrap;gap:26px 48px;margin-top:30px}
+.kpis-doc b{display:block;font:500 34px/1 var(--f-display);letter-spacing:-.03em;color:#FFFFFF;font-variant-numeric:tabular-nums}
+.kpis-doc span{font-size:13px;color:#52B7FF}
+
+.film-video{display:block;width:100%;max-width:100%;aspect-ratio:16/9;border-radius:12px;background:#000;box-shadow:var(--shadow);border:1px solid var(--line)}
+.dl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
+.dl button{font:500 14px var(--f-text);border-radius:8px;padding:10px 16px;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--fg)}
+.dl button.main{background:var(--action);color:var(--bg);border-color:transparent}
+.dl button:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.dl button[disabled]{opacity:.6;cursor:progress}
+.dl-msg{font-size:14px;color:var(--muted)}
+.versions{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(460px,100%),1fr));gap:24px}
+.version{min-width:0}
+.v-desc{margin:0 0 10px;color:var(--muted);font-size:14.5px;max-width:60ch}
+/* ——— Ligne de temps ——— */
+.bloc{margin-top:44px}
+.bloc>h2{font-size:28px;margin-bottom:6px}
+.bloc>.chapo{color:var(--muted);max-width:70ch;margin:0 0 18px}
+.tl-scroll{overflow-x:auto;padding-bottom:4px}
+.tl{min-width:860px}
+.tl-row{display:flex;gap:3px}
+.tl-row a{display:flex;flex-direction:column;justify-content:space-between;min-width:0;height:64px;padding:7px 8px;border-radius:7px;text-decoration:none;font-size:11.5px;line-height:1.2;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.tl-row a b{font-weight:600;font-variant-numeric:tabular-nums}
+.tl-row a span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-row a:hover,.tl-row a:focus-visible{filter:brightness(1.08);outline:2px solid var(--brand);outline-offset:1px}
+.tl-ruler{position:relative;height:22px;margin-top:6px;font:12px var(--f-mono);color:var(--muted)}
+.tl-ruler span{position:absolute;top:0;transform:translateX(-50%)}
+.tl-ruler span:first-child{transform:none}
+.tl-ruler span:last-child{transform:translateX(-100%)}
+.tl-legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:13px;color:var(--muted)}
+.tl-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* ——— CIRCLE ——— */
+.circle-card{background:#120050;color:#F1F3FF;border-radius:16px;padding:28px 24px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:24px;align-items:center;position:relative;overflow:hidden}
+.circle-card::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 30% 50%,rgba(50,139,255,.22),rgba(50,139,255,0) 55%)}
+.circle-card>*{position:relative;z-index:1}
+.circle-card svg{width:100%;height:auto;display:block}
+.stages{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.stages li{display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;align-items:start;padding:10px 0;border-bottom:1px solid rgba(241,243,255,.12)}
+.stages li:last-child{border-bottom:0}
+.stages .lt{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font:600 18px var(--f-display);color:#120050}
+.stages b{display:block;font:500 18px/1.2 var(--f-display);letter-spacing:-.02em}
+.stages p{margin:2px 0 0;color:rgba(241,243,255,.78);font-size:14.5px}
+.stages small{display:block;color:#52B7FF;font-size:12.5px;margin-top:2px}
+@media (max-width:900px){.circle-card{grid-template-columns:1fr}}
+
+/* ——— Planches ——— */
+.board{padding-block:34px;border-top:1px solid var(--line);scroll-margin-top:12px}
+.b-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin-bottom:14px}
+.b-head .num{font:500 13px var(--f-mono);color:var(--muted)}
+.b-head h3{font-size:26px}
+.b-head .tc{font:500 13px var(--f-mono);background:var(--tc-bg);color:var(--tc-fg);padding:3px 9px;border-radius:999px;font-variant-numeric:tabular-nums}
+.b-head .act{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);font-weight:600}
+.b-body{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);gap:26px;align-items:start}
+@media (max-width:1000px){.b-body{grid-template-columns:1fr}}
+.frame{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#0B0620;box-shadow:var(--shadow);cursor:zoom-in;border:1px solid var(--line)}
+.frame:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+.frame .stage{zoom:var(--s,.5)}
+.notes{display:grid;gap:18px;min-width:0}
+.vo-t{margin:0;font:500 19px/1.4 var(--f-display);letter-spacing:-.015em}
+.vo-t::before{content:"“"}.vo-t::after{content:"”"}
+.ose{margin:0;font-size:15px}
+.ose span{display:inline-block;background:var(--sunken);border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin:0 4px 4px 0}
+.notes ul{margin:0;padding-left:18px;font-size:14.5px}
+.notes li+li{margin-top:4px}
+.state{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted)}
+.state .chip{flex:none;font-size:12px;font-weight:600;border-radius:999px;padding:2px 10px;white-space:nowrap}
+.st-sim{background:var(--sim-bg);color:var(--sim-fg)}
+.st-part{background:var(--part-bg);color:var(--part-fg)}
+.st-card{background:var(--tc-bg);color:var(--tc-fg)}
+.notes audio{display:block;width:100%;height:34px;margin-top:10px}
+.cover audio{display:block;width:min(520px,100%);height:40px;margin-top:26px;color-scheme:dark}
+.zoom-hint{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+
+/* ——— Script ——— */
+.script{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.script table{width:100%;border-collapse:collapse}
+.script th,.script td{text-align:left;padding:10px 16px;border-bottom:1px solid var(--line);vertical-align:top;font-size:15px}
+.script th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--sunken)}
+.script td:first-child{font:13px var(--f-mono);white-space:nowrap;color:var(--muted);width:120px}
+.script td:nth-child(2){width:140px;font-weight:500}
+.script tr:last-child td{border-bottom:0}
+.script-scroll{overflow-x:auto}
+.script-scroll table{min-width:620px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:16px}
+.note{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;min-width:0}
+.note h3{font-size:17px;margin-bottom:8px}
+.note p,.note li{font-size:14.5px}
+.note ul{margin:0;padding-left:18px}
+.note p{margin:0}
+
+/* ——— Visionneuse ——— */
+.lb[hidden]{display:none}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(11,6,32,.95);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(12px + env(safe-area-inset-top,0px)) 12px calc(12px + env(safe-area-inset-bottom,0px))}
+.lb-box{position:relative;overflow:hidden;border-radius:8px}
+.lb-bar{display:flex;gap:10px;align-items:center;color:#F1F3FF;font-size:14px;flex-wrap:wrap;justify-content:center}
+.lb-bar button{background:rgba(255,255,255,.12);color:#F1F3FF;border:0;border-radius:7px;padding:7px 12px;font:500 13px var(--f-text);cursor:pointer}
+.lb-bar button:hover{background:rgba(255,255,255,.2)}
+.lb-bar button:focus-visible{outline:2px solid #52B7FF;outline-offset:2px}
+
+/* ═══════════════════ LES PLANS DU FILM (1280 × 720) ═══════════════════ */
+.stage{position:absolute;top:0;left:0;width:1280px;height:720px;transform-origin:0 0;overflow:hidden;font-family:var(--f-text);font-size:12px;line-height:1.45;color:#120050;background:#F7F8FF;text-align:left}
+.stage *{box-sizing:border-box}
+.stage p{margin:0}
+.stage .dsp{font-family:var(--f-display);font-weight:500;letter-spacing:-.03em}
+.stage .num{font-variant-numeric:tabular-nums}
+.stage svg.lucide{width:1em;height:1em;flex:none}
+.dk{background:#120050;color:#F1F3FF}
+.dk::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(760px 520px at 92% -12%,rgba(82,183,255,.32),rgba(82,183,255,0) 62%),radial-gradient(680px 520px at -6% 112%,rgba(27,10,176,.75),rgba(27,10,176,0) 62%)}
+.dk>*{position:relative}
+
+/* coque de l'app */
+.app{display:grid;grid-template-columns:200px minmax(0,1fr);height:720px}
+.sb{background:#FFFFFF;border-right:1px solid rgba(18,0,80,.10);display:flex;flex-direction:column;padding:12px 10px 10px;min-height:0}
+.sb .back{display:flex;align-items:center;gap:6px;color:#5B5878;font-size:11px;padding:2px 6px}
+.sb .lock{display:flex;align-items:center;gap:9px;padding:14px 6px 12px}
+.sb .lock .mark{width:28px;height:28px;flex:none}
+.sb .lock b{display:block;font:500 15px/1.05 var(--f-display);letter-spacing:-.02em}
+.sb .lock small{display:flex;align-items:center;gap:4px;font-size:9.5px;color:#5B5878;margin-top:3px}
+.sb .lock small svg{width:60px;height:8px;color:#120050}
+.sb .brand{border-top:1px solid rgba(18,0,80,.10);border-bottom:1px solid rgba(18,0,80,.10);padding:10px 6px;margin-bottom:8px}
+.sb .brand b{display:block;font:500 13.5px var(--f-display);letter-spacing:-.02em}
+.sb .brand code{font:10.5px var(--f-mono);color:#5B5878}
+.sb .sec{font-size:10px;color:#5B5878;padding:4px 6px;letter-spacing:.04em}
+.sb .it{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:6px;font-size:12.5px;color:#120050;margin-bottom:1px}
+.sb .it .ico{width:24px;height:24px;border-radius:6px;display:grid;place-items:center;color:#5B5878;font-size:14px;flex:none}
+.sb .it.on{background:rgba(27,10,176,.05)}
+.sb .it.on .ico{background:#328BFF;color:#FFFFFF}
+.sb .it .lt{font:600 10px var(--f-display);color:#5B5878;width:12px}
+.sb .it.on .lt{color:#328BFF}
+.sb .it .c{margin-left:auto;font-size:10.5px;color:#5B5878;font-variant-numeric:tabular-nums}
+.sb .foot{margin-top:auto;border-top:1px solid rgba(18,0,80,.10);padding-top:8px}
+.sb .ver{font-size:10px;color:#5B5878;padding:6px 6px 0}
+.main{display:flex;flex-direction:column;min-width:0;height:720px}
+.hd{height:48px;flex:none;display:flex;align-items:center;gap:12px;padding:0 16px 0 8px;border-bottom:1px solid rgba(18,0,80,.10)}
+.hd .tg{width:32px;height:32px;display:grid;place-items:center;color:#5B5878;font-size:15px;border-right:1px solid rgba(18,0,80,.10);padding-right:6px}
+.hd .fav{width:18px;height:18px;border-radius:5px;background:#120050;color:#FFFFFF;font:600 11px/18px var(--f-display);text-align:center}
+.hd code{font:12px var(--f-mono);color:#120050}
+.hd .ttl{font-size:13px}
+.hd .cnt{font-size:12px;color:#5B5878}
+.hd .r{margin-left:auto;display:flex;gap:6px}
+.btn{height:30px;padding:0 11px;border-radius:6px;font-size:12px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;font-weight:500}
+.btn svg.lucide{font-size:13px}
+.btn-p{background:#1B0AB0;color:#FFFFFF;box-shadow:0 1px 2px rgba(18,0,80,.2)}
+.btn-o{background:#FFFFFF;border:1px solid rgba(18,0,80,.14);color:#120050}
+.btn-i{width:30px;padding:0;justify-content:center}
+.ct{padding:14px 20px 16px;display:flex;flex-direction:column;gap:12px;min-height:0;flex:1}
+.rw{display:flex;align-items:center;gap:8px}
+.sp{margin-left:auto}
+.tabs{display:flex;gap:2px;border-bottom:1px solid rgba(18,0,80,.10);align-items:flex-end}
+.tab{padding:6px 10px 8px;font-size:12.5px;color:#5B5878;display:flex;gap:6px;align-items:center;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab.on{color:#120050;border-color:#328BFF}
+.tabs .sp{align-self:center;display:flex;gap:6px;padding-bottom:6px}
+.card{background:#FFFFFF;border:1px solid rgba(18,0,80,.10);border-radius:8px;box-shadow:0 1px 2px rgba(18,0,80,.04),0 6px 16px -10px rgba(18,0,80,.12);padding:14px 16px;min-width:0}
+.kp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{padding:12px 14px}
+.kpi .l{font-size:11px;color:#5B5878}
+.kpi .n{font:500 24px/1.15 var(--f-display);letter-spacing:-.03em;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:10.5px;color:#5B5878;margin-top:3px}
+.up{color:#0a812f}.dn{color:#e10000}
+.eb{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#5B5878}
+.cht{font:500 13px/1.3 var(--f-display);letter-spacing:-.015em}
+.chs{font-size:10.5px;color:#5B5878;margin-top:2px}
+.pl{display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px;border-radius:999px;border:1px solid rgba(18,0,80,.14);background:#FFFFFF;font-size:10.5px;font-weight:500;white-space:nowrap;color:#120050}
+.pl i{width:6px;height:6px;border-radius:50%;background:var(--c,#7A7F9E)}
+.pl.on{background:#120050;color:#FFFFFF;border-color:#120050}
+.chip{display:inline-flex;align-items:center;gap:4px;height:18px;padding:0 7px;border-radius:999px;font-size:10px;font-weight:500;white-space:nowrap}
+.s-todo{background:#EDEFFA;color:#5B5878}.s-prog{background:rgba(50,139,255,.14);color:#1B0AB0}
+.s-rev{background:#FFF2D6;color:#7A4A00}.s-done{background:rgba(12,155,56,.12);color:#0a812f}
+.t-opt{background:rgba(50,139,255,.13);color:#1B0AB0}.t-cre{background:rgba(107,79,224,.13);color:#4B33B8}
+.t-cit{background:rgba(13,143,143,.13);color:#0A6767}.t-tec{background:#EDEFFA;color:#5B5878}.t-par{background:rgba(181,114,42,.14);color:#7A4A12}
+.av{width:20px;height:20px;border-radius:50%;display:inline-grid;place-items:center;font:600 8.5px var(--f-text);color:#FFFFFF;flex:none;border:1.5px solid #FFFFFF}
+.avs{display:flex}.avs .av{margin-left:-6px}.avs .av:first-child{margin-left:0}
+.sel{height:28px;padding:0 9px;border:1px solid rgba(18,0,80,.14);border-radius:6px;background:#FFFFFF;display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:#120050}
+.sel svg.lucide{color:#5B5878}
+.tog{width:26px;height:15px;border-radius:999px;background:#328BFF;position:relative;display:inline-block}
+.tog::after{content:"";position:absolute;right:2px;top:2px;width:11px;height:11px;border-radius:50%;background:#FFFFFF}
+.bar{height:8px;border-radius:4px;background:#EDEFFA;overflow:hidden}
+.bar>i{display:block;height:100%;border-radius:4px;background:#328BFF}
+.mix{display:flex;gap:2px;height:10px}
+.mix i{display:block;height:100%;background:var(--c)}
+.mix i:first-child{border-radius:3px 0 0 3px}.mix i:last-child{border-radius:0 3px 3px 0}
+.lg{display:flex;gap:10px;flex-wrap:wrap;font-size:10.5px;color:#5B5878}
+.lg span{display:inline-flex;align-items:center;gap:4px}
+.lg i{width:8px;height:8px;border-radius:2px;background:var(--c)}
+.crumb{font-size:11px;color:#5B5878;display:flex;gap:6px;align-items:center}
+.crumb b{color:#120050;font-weight:500}
+
+/* surcouches du film */
+.ovl{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);background:rgba(18,0,80,.94);color:#F1F3FF;font:500 30px/1.15 var(--f-display);letter-spacing:-.03em;padding:14px 26px;border-radius:14px;white-space:nowrap;box-shadow:0 24px 50px -18px rgba(18,0,80,.7);z-index:5}
+.ovl em{font-style:normal;color:#52B7FF}
+.hud{position:absolute;right:18px;bottom:24px;display:flex;gap:7px;padding:7px 12px;border-radius:999px;background:rgba(18,0,80,.94);font:600 12px/1 var(--f-display);color:rgba(241,243,255,.4);z-index:5}
+.hud b{color:#52B7FF;font-weight:600}
+
+/* plans titres */
+.c-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.huge{font:500 76px/1.02 var(--f-display);letter-spacing:-.04em;color:#FFFFFF}
+.huge em{font-style:normal;color:#52B7FF}
+.sub-dk{font-size:20px;color:rgba(241,243,255,.72);margin-top:18px}
+.qpill{position:absolute;display:flex;flex-direction:column;gap:3px;background:rgba(255,255,255,.07);border:1px solid rgba(241,243,255,.18);border-radius:12px;padding:9px 13px;color:#F1F3FF;font-size:13px;white-space:nowrap}
+.qpill b{font:500 15px var(--f-display);letter-spacing:-.01em}
+.qpill span{color:rgba(241,243,255,.62)}
+.qpill i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--c);margin-right:6px}
+</style>
+
+<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <defs>
+    <linearGradient id="mbg" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0" stop-color="#3FA6FF"/><stop offset="1" stop-color="#0B78FF"/></linearGradient>
+    @@LOGO_SYMBOL@@
+    @@HUB_MARKS@@
+  </defs>
+</svg>
+
+<div class="wrap">
+
+<header class="cover" id="top">
+  <p class="eyebrow">Keynote film · Storyboard v1 · 1 October 2026</p>
+  <div class="lockup">
+    <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><use href="#hub-dark"/></svg>
+    <div>
+      <h1>OneSearch Hub</h1>
+      <div class="by">by <svg viewBox="0 0 932 126" role="img" aria-label="MentionBox"><use href="#mb-logo"/></svg></div>
+    </div>
+  </div>
+  <p class="lead">Les planches du film de lancement, minute par minute, sans montage. Le texte du film est en anglais (voix off et textes à l'écran) ; les notes de production sont en français. Chaque écran est une maquette : la marque, les personnes et les chiffres sont inventés.</p>
+  <audio controls preload="none" src="audio/voix-off.mp4" aria-label="Bande-son du film : voix off et musique de travail"></audio>
+  <div class="kpis-doc">
+    <div><b>@@DUR@@</b><span>durée</span></div>
+    <div><b>@@NB@@</b><span>planches</span></div>
+    <div><b>6</b><span>étapes CIRCLE</span></div>
+    <div><b>@@WORDS@@</b><span>mots de voix off, voix « Algieba » (Gemini)</span></div>
+  </div>
+</header>
+
+<section class="bloc" id="film">
+  <h2>Le film : deux versions à comparer</h2>
+  <p class="chapo">Même voix, même musique, même minutage : 1 min 43, calé sur 124 BPM, la voix « Algieba » de Gemini générée phrase par phrase. Seul le montage change. La musique est une piste de travail synthétisée, à remplacer par un titre sous licence.</p>
+  <div class="versions">
+    <div class="version">
+      <p class="lbl">V1 · montage sobre</p>
+      <p class="v-desc">Écrans plein cadre, coupes nettes sur les temps, caméra qui zoome dans l'interface.</p>
+      <video class="film-video" controls preload="metadata" playsinline poster="filmweb/poster.jpg" src="filmweb/film-720p.mp4"></video>
+      <div class="dl" hidden>
+        <button type="button" class="main" data-src="filmweb/OneSearchHub_film_v2_1080p.mp4" data-name="OneSearchHub_film_V1_1080p.mp4">Télécharger · 1080p, 15 Mo</button>
+        <button type="button" data-src="filmweb/OneSearchHub_film_v2_720p.mp4" data-name="OneSearchHub_film_V1_720p.mp4">720p, 7 Mo</button>
+        <span class="dl-msg" role="status" aria-live="polite"></span>
+      </div>
+    </div>
+    <div class="version">
+      <p class="lbl">V2 · motion design</p>
+      <p class="v-desc">Écrans en fenêtres flottantes sur fond animé, transitions en profondeur, ouvertures en cercle, mots révélés par masque, cartes qui s'allument quand la voix les nomme.</p>
+      <video class="film-video" controls preload="metadata" playsinline poster="filmweb/poster_motion.jpg" src="filmweb/OneSearchHub_film_V2_motion_720p.mp4"></video>
+      <div class="dl" hidden>
+        <button type="button" class="main" data-src="filmweb/OneSearchHub_film_V2_motion_1080p.mp4" data-name="OneSearchHub_film_V2_motion_1080p.mp4">Télécharger · 1080p, 15 Mo</button>
+        <button type="button" data-src="filmweb/OneSearchHub_film_V2_motion_720p.mp4" data-name="OneSearchHub_film_V2_motion_720p.mp4">720p, 8 Mo</button>
+        <span class="dl-msg" role="status" aria-live="polite"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bloc" id="timeline">
+  <h2>La ligne de temps</h2>
+  <p class="chapo">Chaque bloc est une planche, sa largeur suit sa durée. Cliquer un bloc ouvre la planche.</p>
+  <div class="tl-scroll"><div class="tl">
+    <div class="tl-row">@@TIMELINE@@</div>
+    <div class="tl-ruler">@@RULER@@</div>
+  </div></div>
+  <div class="tl-legend">
+    <span><i style="background:#5D5A86"></i>Le problème</span>
+    <span><i style="background:#1B0AB0"></i>La révélation</span>
+    <span><i style="background:linear-gradient(90deg,#328BFF,#CCEAFF)"></i>Les six étapes CIRCLE</span>
+    <span><i style="background:#120050;border:1px solid var(--line)"></i>La boucle et la fin</span>
+  </div>
+</section>
+
+<section class="bloc" id="circle">
+  <h2>Le cadre CIRCLE</h2>
+  <p class="chapo">Le visuel du cadre, dessiné dans la DA de l'outil : six arcs dans l'ordre de la chaîne, du plus profond au plus clair, et la flèche qui ramène Evaluate vers Collect. Il sert de signature au film (planches 5 et 13) et peut servir au deck.</p>
+  <div class="circle-card">
+    @@RING_BIG@@
+    <ol class="stages">
+      <li><span class="lt" style="background:#328BFF">C</span><div><b>Collect</b><p>Every Search signal, from every platform, in one place.</p><small>All your Search data. One place.</small></div></li>
+      <li><span class="lt" style="background:#45A2FF">I</span><div><b>Identify</b><p>One Opportunity Score ranks where the brand can win.</p><small>Thousands of signals. One score.</small></div></li>
+      <li><span class="lt" style="background:#52B7FF">R</span><div><b>Recommend</b><p>The right actions, for each platform.</p><small>Every opportunity, turned into action.</small></div></li>
+      <li><span class="lt" style="background:#7CC8FF">C</span><div><b>Coordinate</b><p>Owners, teams, deadlines, agencies included.</p><small>From recommendations to ownership.</small></div></li>
+      <li><span class="lt" style="background:#A9DBFF">L</span><div><b>Launch</b><p>Brief, create, approve, publish, tracked to live.</p><small>From brief to live.</small></div></li>
+      <li><span class="lt" style="background:#CCEAFF">E</span><div><b>Evaluate</b><p>Each action, linked to what it changed.</p><small>Impact you can prove.</small></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="bloc" id="planches">
+  <h2>Les planches</h2>
+  <p class="chapo">Une planche par plan. Cliquer une image l'ouvre en grand ; les flèches du clavier passent à la suivante. L'étiquette « Produit aujourd'hui » est interne : elle dit ce qui existe déjà dans l'outil et ce qui est simulé.</p>
+
+<!-- ═════ 01 ═════ -->
+<article class="board" id="@@ID:one-box@@">
+  <div class="b-head"><span class="num">@@N:one-box@@</span><h3>One box</h3><span class="tc">@@TC:one-box@@</span><span class="act">Ouverture</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:one-box@@"><div class="stage dk">
+      <div class="c-center">
+        <div style="width:620px;height:64px;border-radius:999px;background:#FFFFFF;display:flex;align-items:center;gap:16px;padding:0 26px;box-shadow:0 30px 80px -20px rgba(82,183,255,.45)">
+          <i data-lucide="search" style="color:#5B5878;font-size:22px"></i>
+          <span style="width:2px;height:26px;background:#120050"></span>
+        </div>
+        <p style="margin-top:26px;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:rgba(241,243,255,.45)">search</p>
+      </div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Search used to live in one box.</p><audio controls preload="none" src="audio/one-box.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>Aucun texte, la case seule</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>Noir indigo, la case de recherche apparaît au centre ; lent travelling avant.</li><li>Le curseur clignote deux fois, rien ne s'écrit.</li><li>Son : un seul clic de clavier, puis silence.</li></ul></div>
+      <div class="state"><span class="chip st-card">Carton</span><span>Pas d'écran produit.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ 02 ═════ -->
+<article class="board" id="@@ID:everywhere@@">
+  <div class="b-head"><span class="num">@@N:everywhere@@</span><h3>Everywhere</h3><span class="tc">@@TC:everywhere@@</span><span class="act">Le problème</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:everywhere@@"><div class="stage dk">
+      <div class="qpill" style="left:70px;top:70px"><b><i style="--c:#328BFF"></i>Google</b><span>best carbon running shoes</span></div>
+      <div class="qpill" style="left:470px;top:44px"><b><i style="--c:#6B4FE0"></i>ChatGPT</b><span>is a carbon plate worth it for my first marathon?</span></div>
+      <div class="qpill" style="right:60px;top:110px"><b><i style="--c:#0D8F8F"></i>TikTok</b><span>#marathontraining</span></div>
+      <div class="qpill" style="left:110px;top:220px"><b><i style="--c:#B5722A"></i>Amazon</b><span>running shoes men size 44</span></div>
+      <div class="qpill" style="right:120px;top:250px"><b><i style="--c:#D94452"></i>YouTube</b><span>carbon vs foam, 30-day test</span></div>
+      <div class="qpill" style="left:60px;bottom:120px"><b><i style="--c:#6B4FE0"></i>Perplexity</b><span>lightest marathon shoes 2026</span></div>
+      <div class="qpill" style="left:400px;bottom:60px"><b><i style="--c:#9B5FC7"></i>Instagram</b><span>race day outfit</span></div>
+      <div class="qpill" style="right:70px;bottom:90px"><b><i style="--c:#7A7F9E"></i>Reddit</b><span>r/running · shoe rotation for beginners</span></div>
+      <div class="qpill" style="right:390px;bottom:170px;opacity:.75"><b><i style="--c:#6B4FE0"></i>Gemini</b><span>flat feet running shoes</span></div>
+      <div class="c-center"><p class="huge">Search is <em>everywhere.</em></p></div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Search is everywhere. ChatGPT. TikTok. Amazon.</p><audio controls preload="none" src="audio/everywhere.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>Search is everywhere.</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>La case de la planche 01 éclate en neuf pastilles qui s'écartent en flottant.</li><li>Chaque pastille montre une vraie recherche, en même temps que la voix nomme la plateforme.</li><li>Le titre se pose au centre sur « Search is everywhere now ».</li></ul></div>
+      <div class="state"><span class="chip st-card">Carton</span><span>Plateformes nommées en pastilles, sans logo.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ 03 ═════ -->
+<article class="board" id="@@ID:pieces@@">
+  <div class="b-head"><span class="num">@@N:pieces@@</span><h3>In pieces</h3><span class="tc">@@TC:pieces@@</span><span class="act">Le problème</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:pieces@@"><div class="stage dk">
+      <div style="position:absolute;left:70px;top:90px;width:470px;height:540px">
+        @@FRAGMENTS@@
+      </div>
+      <div style="position:absolute;left:640px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;gap:22px">
+        <p class="dsp" style="font-size:44px;line-height:1.05;color:#FFFFFF">Where’s the opportunity?</p>
+                <p class="dsp" style="font-size:44px;line-height:1.05;color:rgba(241,243,255,.64)">Who owns it?</p>
+        <p class="dsp" style="font-size:44px;line-height:1.05;color:#52B7FF">Did it work?</p>
+      </div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Your data, scattered. Your teams, siloed. Where’s the opportunity? Who owns it? Did it work?</p><audio controls preload="none" src="audio/pieces.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>Where’s the opportunity?</span><span>Who owns it?</span><span>Did it work?</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>À gauche, les fragments du quotidien (exports, rapports, tableurs, fil d'équipe) dérivent, légèrement inclinés, sans jamais se toucher.</li><li>À droite, les quatre questions tombent une par une, calées sur la voix.</li><li>« Did it work? » reste en bleu : c'est la question qui ouvre la révélation.</li></ul></div>
+      <div class="state"><span class="chip st-card">Carton</span><span>Pas d'écran produit.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ 04 ═════ -->
+<article class="board" id="@@ID:intro@@">
+  <div class="b-head"><span class="num">@@N:intro@@</span><h3>Introducing OneSearch Hub</h3><span class="tc">@@TC:intro@@</span><span class="act">La révélation</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:intro@@"><div class="stage dk">
+      @@ORBIT@@
+      <div class="c-center">
+        <svg viewBox="0 0 40 40" style="width:92px;height:92px" aria-hidden="true"><use href="#hub-dark"/></svg>
+        <p class="dsp" style="font-size:84px;line-height:1;color:#FFFFFF;margin-top:26px">OneSearch Hub</p>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:18px;font-size:18px;color:rgba(241,243,255,.7)">by <svg viewBox="0 0 932 126" style="width:150px;height:20px;color:#FFFFFF"><use href="#mb-logo"/></svg></div>
+      </div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Introducing OneSearch Hub.</p><audio controls preload="none" src="audio/intro.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>OneSearch Hub</span><span>by MentionBox</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>Les pastilles de la planche @@N:everywhere@@ reviennent et convergent en orbite vers le centre.</li><li>En se resserrant, l'orbite devient l'anneau à six arcs, puis le nom se pose.</li><li>« Every platform. Every team. Every result. » : trois battements, trois pulsations de l'anneau.</li></ul></div>
+      <div class="state"><span class="chip st-card">Carton</span><span>Logo : l'anneau CIRCLE, dessiné pour ces planches à partir des couleurs de MentionBox.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ overview ═════ -->
+<article class="board" id="@@ID:overview@@">
+  <div class="b-head"><span class="num">@@N:overview@@</span><h3>One screen</h3><span class="tc">@@TC:overview@@</span><span class="act">La révélation</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:overview@@"><div class="stage">
+      <div class="app" data-stage="overview">
+        <div class="main">
+          <div class="hd" data-title="Overview" data-count="All platforms · week of 2 March"></div>
+          <div class="ct">
+            <div class="rw"><div><p class="dsp" style="font-size:24px">Good morning, Maya.</p><p class="chs" style="font-size:12px">Here is where Velox stands in Search this week.</p></div><span class="sp" style="display:flex;gap:6px"><span class="sel">Europe · English <i data-lucide="chevron-down"></i></span><span class="btn btn-o"><i data-lucide="file-text"></i>Share report</span></span></div>
+            <div class="kp">
+              <div class="card kpi"><p class="l">Search visibility</p><p class="n">10%</p><p class="s">of results, across 7 platforms</p></div>
+              <div class="card kpi"><p class="l">Market leader</p><p class="n">31%</p><p class="s">stridelab.com, same 7 platforms</p></div>
+              <div class="card kpi"><p class="l">Search demand</p><p class="n">2.4M</p><p class="s">signals in 30 days, <span class="up">+12%</span> vs February</p></div>
+              <div class="card kpi"><p class="l">Opportunities</p><p class="n">38</p><p class="s">high, worth 1.9M searches a month</p></div>
+            </div>
+            <div style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px;min-height:0">
+              <div class="card"><div class="rw"><div><p class="cht">Where Velox shows up</p><p class="chs">Share of results by platform, last 30 days · the dark tick is the market leader</p></div></div>@@OVERVIEW_BARS@@</div>
+              <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+                <div class="card"><div class="rw"><p class="cht">This quarter’s circle</p><span class="sp chip t-opt">Step 3 of 6</span></div>@@OVERVIEW_CIRCLE@@</div>
+                <div class="card" style="display:flex;flex-direction:column;gap:8px"><p class="cht">What changed this week</p>
+                  <p style="display:flex;gap:8px;align-items:flex-start;font-size:11.5px"><span style="color:#6B4FE0;font-size:13px;margin-top:1px"><i data-lucide="sparkles"></i></span><span>AI Overviews now show on <b style="font-weight:600">14 of your intents</b>, up from 9.</span></p>
+                  <p style="display:flex;gap:8px;align-items:flex-start;font-size:11.5px"><span style="color:#0D8F8F;font-size:13px;margin-top:1px"><i data-lucide="trending-up"></i></span><span>stridelab.com entered TikTok results for <b style="font-weight:600">carbon plate running shoes</b>.</span></p>
+                  <p style="display:flex;gap:8px;align-items:flex-start;font-size:11.5px"><span style="color:#328BFF;font-size:13px;margin-top:1px"><i data-lucide="activity"></i></span><span>Demand for <b style="font-weight:600">marathon training plan</b> is up 18% in four weeks.</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ovl">Your Search, <em>on one screen.</em></div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Every platform. Every team. Every result. Your Search, on one screen.</p><audio controls preload="none" src="audio/overview.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>Your Search, on one screen.</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>L'anneau du logo s'ouvre et devient l'écran : premier plan produit du film, en plein cadre.</li><li>Les barres « Where Velox shows up » poussent une par une sur « Google. AI answers. Social. Marketplaces. » ; le repère sombre du leader apparaît ensuite, et l'écart saute aux yeux.</li><li>Le cercle du trimestre s'allume étape par étape jusqu'à Recommend : c'est le chemin que le film va suivre.</li></ul></div>
+      <div class="state"><span class="chip st-part">En partie construit</span><span>La Vue d'ensemble d'un projet existe (préparation, chaîne des outils, tuiles). La visibilité tous canaux et le cercle du trimestre sont simulés.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ 05 ═════ -->
+<article class="board" id="@@ID:six@@">
+  <div class="b-head"><span class="num">@@N:six@@</span><h3>Six moves</h3><span class="tc">@@TC:six@@</span><span class="act">La révélation</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:six@@"><div class="stage dk">
+      <div class="c-center">
+        <p style="font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#52B7FF;margin-bottom:34px">The CIRCLE framework</p>
+        <div style="display:flex;gap:18px">@@LETTERS@@</div>
+      </div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Six moves. One circle.</p><audio controls preload="none" src="audio/six.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>C · I · R · C · L · E</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>Les six lettres tombent en rafale, chacune avec sa couleur d'arc.</li><li>Le C de Collect reste allumé : il passe dans le coin de l'écran suivant et devient le repère CIRCLE qui suit tout le film.</li></ul></div>
+      <div class="state"><span class="chip st-card">Carton</span><span>Pas d'écran produit.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ 06 COLLECT ═════ -->
+<article class="board" id="@@ID:collect@@">
+  <div class="b-head"><span class="num">@@N:collect@@</span><h3>Collect</h3><span class="tc">@@TC:collect@@</span><span class="act">C · Collect</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:collect@@"><div class="stage">
+      <div class="app" data-stage="collect">
+        <div class="main">
+          <div class="hd" data-title="Data sources" data-count="12 sources connected"></div>
+          <div class="ct">
+            <div class="tabs"><span class="tab on"><i data-lucide="plug"></i>Sources</span><span class="tab"><i data-lucide="activity"></i>Signals</span><span class="tab"><i data-lucide="shield-check"></i>Data health</span><span class="sp"><span class="btn btn-o"><i data-lucide="upload"></i>Upload a file</span><span class="btn btn-p"><i data-lucide="plus"></i>Connect a source</span></span></div>
+            <div class="kp">
+              <div class="card kpi"><p class="l">Search signals</p><p class="n">2.4M</p><p class="s">last 30 days, across 7 platforms</p></div>
+              <div class="card kpi"><p class="l">Sources connected</p><p class="n">12</p><p class="s"><span class="up">All synced</span> in the last hour</p></div>
+              <div class="card kpi"><p class="l">Search intents</p><p class="n">12,480</p><p class="s">deduplicated across platforms</p></div>
+              <div class="card kpi"><p class="l">First-party data</p><p class="n">410k</p><p class="s">Velox Members, joined on email hash</p></div>
+            </div>
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:12px;min-height:0">
+              <div style="display:flex;flex-direction:column;gap:8px;min-width:0">
+                <p class="eb">Connected sources</p>
+                <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">@@SOURCES@@</div>
+              </div>
+              <div class="card" style="padding:12px 14px">
+                <p class="cht">Where the signals come from</p>
+                <p class="chs">Search signals by platform, last 30 days · 2.4M in total</p>
+                @@COLLECT_BARS@@
+              </div>
+            </div>
+            <div class="card" style="padding:10px 16px;display:flex;align-items:center;gap:12px;font-size:12px">
+              <span class="eb">Feeds the circle</span>
+              <span class="dsp num" style="font-size:15px">12 sources</span><i data-lucide="arrow-right" style="color:#5B5878"></i>
+              <span class="dsp num" style="font-size:15px">2.4M signals</span><i data-lucide="arrow-right" style="color:#5B5878"></i>
+              <span class="dsp num" style="font-size:15px">12,480 search intents</span><i data-lucide="arrow-right" style="color:#5B5878"></i>
+              <span class="chip t-opt" style="height:22px;font-size:11px;padding:0 10px"><i data-lucide="target"></i>Ready for Identify</span>
+              <span class="sp" style="font-size:10.5px;color:#5B5878">Deduplicated across platforms, refreshed every hour</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ovl">All your Search data. <em>One place.</em></div>
+      <div class="hud"><b>C</b>I R C L E</div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Collect. Search Console. Analytics. AI answers. Social. Marketplaces. All your Search data. One place.</p><audio controls preload="none" src="audio/collect.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>All your Search data. One place.</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>Les cartes de sources s'allument une à une sur chaque mot de la voix (Search Console, Analytics, AI answers…).</li><li>Le compteur « Search signals » monte de 0 à 2.4M ; les barres de droite poussent de gauche à droite.</li><li>Sortie : le compteur 12,480 intents s'envole vers l'écran suivant.</li></ul></div>
+      <div class="state"><span class="chip st-part">En partie construit</span><span>Search Console, MentionLab (réponses IA), DataForSEO et le crawl sont branchés aujourd'hui. GA4, social, marketplaces, études et CRM sont simulés.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ 07 IDENTIFY A ═════ -->
+<article class="board" id="@@ID:rank@@">
+  <div class="b-head"><span class="num">@@N:rank@@</span><h3>Identify · the ranking</h3><span class="tc">@@TC:rank@@</span><span class="act">I · Identify</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:rank@@"><div class="stage">
+      <div class="app" data-stage="identify">
+        <div class="main">
+          <div class="hd" data-title="Opportunities" data-count="12,480 search intents"></div>
+          <div class="ct">
+            <div class="tabs"><span class="tab on"><i data-lucide="list-ordered"></i>Ranking</span><span class="tab"><i data-lucide="map"></i>Intent map</span><span class="tab"><i data-lucide="swords"></i>Competitors</span><span class="sp"><span class="btn btn-o"><i data-lucide="sliders-horizontal"></i>Score settings</span><span class="btn btn-p"><i data-lucide="sparkles"></i>Get recommendations for 38</span></span></div>
+            <div class="kp">
+              <div class="card kpi"><p class="l">Search intents analysed</p><p class="n">12,480</p><p class="s">from 2.4M signals, 7 platforms</p></div>
+              <div class="card kpi"><p class="l">High opportunity</p><p class="n">38</p><p class="s">Opportunity Score of 85 or more</p></div>
+              <div class="card kpi"><p class="l">Demand in reach</p><p class="n">1.9M</p><p class="s">searches a month, on those 38</p></div>
+              <div class="card kpi"><p class="l">Velox visibility</p><p class="n">11%</p><p class="s">of results on those 38 intents</p></div>
+            </div>
+            <div class="card" style="padding:9px 12px;display:flex;align-items:center;gap:6px">
+              <span class="pl on">All platforms</span><span class="pl"><i style="--c:#328BFF"></i>Google</span><span class="pl"><i style="--c:#6B4FE0"></i>AI answers</span><span class="pl"><i style="--c:#0D8F8F"></i>TikTok</span><span class="pl"><i style="--c:#D94452"></i>YouTube</span><span class="pl"><i style="--c:#B5722A"></i>Amazon</span>
+              <span class="sel" style="margin-left:10px">Intent: all <i data-lucide="chevron-down"></i></span><span class="sel">Market: Europe <i data-lucide="chevron-down"></i></span>
+              <span class="sp" style="display:flex;align-items:center;gap:6px;font-size:11px;color:#5B5878"><span class="tog"></span>Non-brand only</span>
+            </div>
+            <div class="card" style="padding:0;overflow:hidden">
+              @@OPP_TABLE@@
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ovl">Thousands of signals. <em>One ranking.</em></div>
+      <div class="hud">C <b>I</b> R C L E</div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Identify. Thousands of signals. One ranking.</p><audio controls preload="none" src="audio/rank.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>Thousands of signals. One ranking.</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>Le tableau commence dans le désordre (tri alphabétique), puis les lignes se réordonnent par score en 1,2 s ; les flèches vertes « ▲ 212 » disent de combien chaque ligne a sauté.</li><li>Les pastilles de score se remplissent au passage, du clair au profond.</li><li>Fin : zoom sur la ligne 1, qui s'ouvre en planche @@N:score@@.</li></ul></div>
+      <div class="state"><span class="chip st-part">En partie construit</span><span>Volume, intention et visibilité Google existent (Audit sémantique). La demande par plateforme et le classement par score sont simulés.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ 08 IDENTIFY B ═════ -->
+<article class="board" id="@@ID:score@@">
+  <div class="b-head"><span class="num">@@N:score@@</span><h3>Identify · the Opportunity Score</h3><span class="tc">@@TC:score@@</span><span class="act">I · Identify</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:score@@"><div class="stage">
+      <div class="app" data-stage="identify">
+        <div class="main">
+          <div class="hd" data-title="Opportunities" data-count="12,480 search intents"></div>
+          <div class="ct">
+            <div class="crumb">Opportunities <i data-lucide="chevron-right"></i> <b>carbon plate running shoes</b></div>
+            <div class="rw"><p class="dsp" style="font-size:24px">carbon plate running shoes</p><span class="chip t-opt">Commercial</span><span class="chip t-tec">Europe · English</span><span class="sp btn btn-p"><i data-lucide="sparkles"></i>See recommended actions</span></div>
+            <div style="display:grid;grid-template-columns:430px minmax(0,1fr);gap:12px;min-height:0">
+              <div class="card" style="display:flex;flex-direction:column;gap:14px">
+                <div class="rw" style="gap:18px">
+                  @@GAUGE@@
+                  <div><p class="eb">Opportunity Score</p><p class="dsp" style="font-size:20px;margin-top:4px">High opportunity</p><p class="chs" style="font-size:11.5px">Rank 1 of 12,480 search intents</p></div>
+                </div>
+                @@SCORE_PARTS@@
+                <p class="chs" style="border-top:1px solid rgba(18,0,80,.10);padding-top:10px">Score = demand × platform reach × visibility gap, on the last 90 days. Each part is out of 100.</p>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+                <div class="card"><p class="cht">Demand, last 12 months</p><p class="chs">Monthly searches across 6 platforms · +31% in a year</p>@@DEMAND_CHART@@</div>
+                <div class="card"><div class="rw"><div><p class="cht">Who is visible, by platform</p><p class="chs">Share of results where the brand appears, last 90 days</p></div><span class="sp lg"><span style="--c:#328BFF"><i></i>Velox</span><span style="--c:#7A7F9E"><i></i>Most visible competitor</span></span></div>@@VIS_BARS@@</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ovl">Here’s where you <em>win.</em></div>
+      <div class="hud">C <b>I</b> R C L E</div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">The Opportunity Score. Here’s where you win.</p><audio controls preload="none" src="audio/score.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>Here’s where you win.</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>La jauge se remplit jusqu'à 94 pendant « The Opportunity Score ».</li><li>Les trois barres s'allongent l'une après l'autre, chacune sur sa phrase : « What people want » (demande), « Where they look for it » (plateformes), « how visible you are today » (écart).</li><li>À droite, la courbe de demande se trace, puis les barres Velox restent courtes face au concurrent : c'est l'écart à combler.</li></ul></div>
+      <div class="state"><span class="chip st-sim">Simulé</span><span>L'Opportunity Score n'existe pas encore. Son ancêtre réel : « Où est le trafic à gagner ? » dans la Synthèse du Rank Tracker.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ 09 RECOMMEND ═════ -->
+<article class="board" id="@@ID:recommend@@">
+  <div class="b-head"><span class="num">@@N:recommend@@</span><h3>Recommend</h3><span class="tc">@@TC:recommend@@</span><span class="act">R · Recommend</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:recommend@@"><div class="stage">
+      <div class="app" data-stage="recommend">
+        <div class="main">
+          <div class="hd" data-title="Recommended actions" data-count="for 38 opportunities"></div>
+          <div class="ct">
+            <div class="crumb">Opportunities <i data-lucide="chevron-right"></i> carbon plate running shoes <i data-lucide="chevron-right"></i> <b>Recommended actions</b></div>
+            <div class="card" style="display:flex;align-items:center;gap:22px;padding:12px 16px">
+              <div><p class="dsp" style="font-size:20px">carbon plate running shoes</p><p class="chs">Opportunity Score 94 · 182,000 searches a month</p></div>
+              <div style="border-left:1px solid rgba(18,0,80,.10);padding-left:22px"><p class="dsp num" style="font-size:22px">10 actions</p><p class="chs">on 4 platforms</p></div>
+              <div style="border-left:1px solid rgba(18,0,80,.10);padding-left:22px"><p class="dsp num" style="font-size:22px">+38,000</p><p class="chs">visits a month · estimate</p></div>
+              <span class="sp btn btn-p"><i data-lucide="list-plus"></i>Add 10 to the action plan</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;min-height:0">@@RECO_COLS@@</div>
+          </div>
+        </div>
+      </div>
+      <div class="ovl">Every opportunity, <em>turned into action.</em></div>
+      <div class="hud">C I <b>R</b> C L E</div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Recommend. Google. AI answers. TikTok. Amazon. Every opportunity, turned into action.</p><audio controls preload="none" src="audio/recommend.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>Every opportunity, turned into action.</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>Un balayage d'analyse traverse l'écran (0,6 s), puis les quatre colonnes tombent en cascade, chacune sur le nom de sa plateforme dans la voix.</li><li>Les cartes se cochent toutes seules ; le compteur « +38,000 » monte.</li><li>Clic sur la carte « Get cited » de la colonne AI answers : elle s'ouvre en grand, planche @@N:ai-answer@@.</li></ul></div>
+      <div class="state"><span class="chip st-part">En partie construit</span><span>Les leviers du Content Gap existent (améliorer une page, créer, se faire citer ailleurs, entrer dans l'AI Overview), avec la structure optimisée et le Pruning. Les recommandations social et marketplace sont simulées.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ ai-answer ═════ -->
+<article class="board" id="@@ID:ai-answer@@">
+  <div class="b-head"><span class="num">@@N:ai-answer@@</span><h3>Recommend · inside an AI answer</h3><span class="tc">@@TC:ai-answer@@</span><span class="act">R · Recommend</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:ai-answer@@"><div class="stage">
+      <div class="app" data-stage="recommend">
+        <div class="main">
+          <div class="hd" data-title="Recommended actions" data-count="for 38 opportunities"></div>
+          <div class="ct">
+            <div class="crumb">Opportunities <i data-lucide="chevron-right"></i> carbon plate running shoes <i data-lucide="chevron-right"></i> <b>AI answers</b></div>
+            <div style="display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:12px;min-height:0">
+              <div class="card" style="display:flex;flex-direction:column;gap:12px">
+                <div class="rw" style="gap:6px"><span class="pl on">ChatGPT</span><span class="pl"><i style="--c:#6B4FE0"></i>Gemini</span><span class="pl"><i style="--c:#6B4FE0"></i>Perplexity</span><span class="pl"><i style="--c:#6B4FE0"></i>AI Overviews</span><span class="pl"><i style="--c:#6B4FE0"></i>Copilot</span><span class="sp" style="font-size:10.5px;color:#5B5878">214 answers read · last 30 days</span></div>
+                <div style="align-self:flex-end;max-width:72%;background:#EDEFFA;border-radius:14px 14px 4px 14px;padding:10px 14px;font-size:12.5px">Is a carbon plate worth it for my first marathon?</div>
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                  <span style="width:26px;height:26px;border-radius:50%;background:#120050;color:#FFFFFF;display:grid;place-items:center;font-size:13px;flex:none"><i data-lucide="sparkles"></i></span>
+                  <div style="font-size:12.5px;line-height:1.6;display:flex;flex-direction:column;gap:8px">
+                    <p>For most first-time marathoners, a carbon plate helps most when you run long efforts at goal pace. It stiffens the sole and returns more energy late in the race.</p>
+                    <p>Popular picks include the <mark style="background:rgba(107,79,224,.14);color:#120050;border-radius:3px;padding:0 3px">Stridelab Pace One</mark> <span class="chip t-tec" style="height:16px">1</span> and the <mark style="background:rgba(107,79,224,.14);color:#120050;border-radius:3px;padding:0 3px">Peakform Carbon 2</mark> <span class="chip t-tec" style="height:16px">2</span>. Many runners start with a plated trainer before racing in a full carbon shoe <span class="chip t-tec" style="height:16px">3</span>.</p>
+                  </div>
+                </div>
+                <div class="rw" style="gap:6px;padding-left:36px"><span class="pl" style="font-weight:400"><b style="font-weight:600">1</b> runnersguide.net</span><span class="pl" style="font-weight:400"><b style="font-weight:600">2</b> stridelab.com</span><span class="pl" style="font-weight:400"><b style="font-weight:600">3</b> reddit.com/r/running</span></div>
+                <div style="margin-top:auto;display:flex;gap:10px;align-items:center;background:#FFF2D6;color:#7A4A00;border-radius:8px;padding:10px 12px;font-size:12px"><i data-lucide="triangle-alert" style="font-size:15px"></i><span><b style="font-weight:600">Velox is not mentioned.</b> The Aero 3 appears in 0 of 214 answers on this intent.</span></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+                <div class="card"><p class="cht">Who gets cited on this intent</p><p class="chs">Share of the 214 AI answers that cite each source</p>@@AI_SOURCES@@</div>
+                <div class="card" style="display:flex;flex-direction:column;gap:8px">
+                  <div class="rw"><p class="cht">Take their place</p><span class="sp chip t-cit">2 actions</span></div>
+                  <div style="border:1px solid rgba(18,0,80,.10);border-radius:7px;padding:8px 10px;display:flex;gap:8px;align-items:flex-start"><span class="chip t-cit">Get cited</span><p style="font-size:11.5px;font-weight:500;line-height:1.35">Pitch the Velox lab data to runnersguide.net, the most cited source.</p></div>
+                  <div style="border:1px solid rgba(18,0,80,.10);border-radius:7px;padding:8px 10px;display:flex;gap:8px;align-items:flex-start"><span class="chip t-cre">Create</span><p style="font-size:11.5px;font-weight:500;line-height:1.35">Publish the energy-return test with its numbers, in a page AI assistants can quote.</p></div>
+                  <span class="btn btn-p" style="justify-content:center"><i data-lucide="list-plus"></i>Add 2 to the action plan</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ovl">See who gets cited. <em>Take their place.</em></div>
+      <div class="hud">C I <b>R</b> C L E</div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">See who gets cited. Take their place.</p><audio controls preload="none" src="audio/ai-answer.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>See who gets cited. Take their place.</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>La question s'écrit, puis la réponse de l'IA se déroule mot à mot, comme dans ChatGPT.</li><li>Les deux marques concurrentes se surlignent, les numéros de source s'allument et renvoient aux domaines cités.</li><li>Le bandeau « Velox is not mentioned » glisse en bas ; à droite, la barre velox.run reste à zéro.</li><li>Clic sur « Add 2 to the action plan » : les deux cartes partent vers le plan d'action.</li></ul></div>
+      <div class="state"><span class="chip st-part">En partie construit</span><span>Les réponses des IA, les sources citées et les domaines à approcher existent déjà dans le Content Gap, via MentionLab. La lecture par opportunité est simulée.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ 10 COORDINATE ═════ -->
+<article class="board" id="@@ID:coordinate@@">
+  <div class="b-head"><span class="num">@@N:coordinate@@</span><h3>Coordinate</h3><span class="tc">@@TC:coordinate@@</span><span class="act">C · Coordinate</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:coordinate@@"><div class="stage">
+      <div class="app" data-stage="coordinate">
+        <div class="main">
+          <div class="hd" data-title="Action plan" data-count="42 tasks · 6 owners"></div>
+          <div class="ct">
+            <div class="rw">
+              <p class="dsp" style="font-size:22px">Carbon Season</p><span class="chip t-cre">Taskforce</span><span class="chip t-tec">Q2</span>
+              <span class="avs" style="margin-left:8px">@@AVATARS@@</span><span style="font-size:11px;color:#5B5878">5 teams · 1 agency</span>
+              <span class="sp" style="display:flex;gap:6px"><span style="display:inline-flex;border:1px solid rgba(18,0,80,.14);border-radius:6px;overflow:hidden;font-size:11.5px"><span style="padding:5px 10px;background:#120050;color:#FFFFFF">Board</span><span style="padding:5px 10px;background:#FFFFFF">Timeline</span><span style="padding:5px 10px;background:#FFFFFF">List</span></span><span class="btn btn-p"><i data-lucide="plus"></i>Task</span></span>
+            </div>
+            <div class="card" style="padding:10px 14px;display:flex;align-items:center;gap:16px">
+              <span style="font-size:11.5px"><b class="num" style="font-weight:600">18 of 42</b> tasks done</span>
+              <div class="bar" style="flex:1;height:8px"><i style="width:42.9%"></i></div>
+              <span style="font-size:11.5px;color:#5B5878">Launch <b style="color:#120050;font-weight:500">12 May</b> · 11 days left</span>
+              <span class="chip s-rev"><i data-lucide="triangle-alert"></i>2 tasks need an owner</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;min-height:0;position:relative">@@BOARD@@</div>
+          </div>
+        </div>
+      </div>
+      <div class="ovl">Every action gets <em>an owner.</em></div>
+      <div class="hud">C I R <b>C</b> L E</div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Coordinate. Every action gets an owner. Every team. Your agencies, too.</p><audio controls preload="none" src="audio/coordinate.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>Every action gets an owner.</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>Les cartes venues des planches @@N:recommend@@ et @@N:ai-answer@@ atterrissent dans la colonne de leur équipe ; chaque colonne s'éclaire sur son nom dans la voix.</li><li>Sur « an owner », le menu d'attribution s'ouvre sur la carte du guide et l'avatar de Tom s'y pose.</li><li>« Your agencies, too » : l'avatar de l'agence Kestrel PR rejoint la rangée en haut. La barre d'avancement glisse de 18 à 24.</li></ul></div>
+      <div class="state"><span class="chip st-sim">Simulé</span><span>Aucune gestion de tâches aujourd'hui. Amorces réelles : le calendrier éditorial (mois, statut) et les « trois envois, trois destinataires » du Content Pruning.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ timeline ═════ -->
+<article class="board" id="@@ID:timeline@@">
+  <div class="b-head"><span class="num">@@N:timeline@@</span><h3>Coordinate · the timeline</h3><span class="tc">@@TC:timeline@@</span><span class="act">C · Coordinate</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:timeline@@"><div class="stage">
+      <div class="app" data-stage="coordinate">
+        <div class="main">
+          <div class="hd" data-title="Action plan" data-count="42 tasks · 6 owners"></div>
+          <div class="ct">
+            <div class="rw">
+              <p class="dsp" style="font-size:22px">Carbon Season</p><span class="chip t-cre">Taskforce</span><span class="chip t-tec">Q2</span>
+              <span class="avs" style="margin-left:8px">@@AVATARS@@</span><span style="font-size:11px;color:#5B5878">5 teams · 1 agency</span>
+              <span class="sp" style="display:flex;gap:6px"><span style="display:inline-flex;border:1px solid rgba(18,0,80,.14);border-radius:6px;overflow:hidden;font-size:11.5px"><span style="padding:5px 10px;background:#FFFFFF">Board</span><span style="padding:5px 10px;background:#120050;color:#FFFFFF">Timeline</span><span style="padding:5px 10px;background:#FFFFFF">List</span></span><span class="btn btn-p"><i data-lucide="plus"></i>Task</span></span>
+            </div>
+            <div class="card" style="padding:0;overflow:hidden">@@GANTT@@</div>
+          </div>
+        </div>
+      </div>
+      <div class="ovl">One plan. <em>Nothing slips.</em></div>
+      <div class="hud">C I R <b>C</b> L E</div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">One plan. Nothing slips.</p><audio controls preload="none" src="audio/timeline.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>One plan. Nothing slips.</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>Le tableau de la planche précédente bascule en vue « Timeline » : les cartes s'étirent en barres sur le calendrier.</li><li>Les liens de dépendance se tracent (test de labo → pitch presse, guide → lancement) sur « Every dependency in view ».</li><li>La ligne « Today » avance d'un jour, le losange du lancement du 12 mai pulse sur « Nothing slips ».</li></ul></div>
+      <div class="state"><span class="chip st-sim">Simulé</span><span>Aucun planning d'équipe aujourd'hui. Le calendrier éditorial range déjà les contenus par mois.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ 11 LAUNCH ═════ -->
+<article class="board" id="@@ID:launch@@">
+  <div class="b-head"><span class="num">@@N:launch@@</span><h3>Launch</h3><span class="tc">@@TC:launch@@</span><span class="act">L · Launch</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:launch@@"><div class="stage">
+      <div class="app" data-stage="launch">
+        <div class="main">
+          <div class="hd" data-title="Production" data-count="6 actions in flight"></div>
+          <div class="ct">
+            <div class="crumb">Action plan <i data-lucide="chevron-right"></i> Content <i data-lucide="chevron-right"></i> <b>Guide: Is a carbon plate worth it for your first marathon?</b></div>
+            <div class="card" style="padding:10px 16px">@@STEPPER@@</div>
+            <div style="display:grid;grid-template-columns:300px minmax(0,1fr) 250px;gap:12px;min-height:0">
+              @@LAUNCH_PANELS@@
+            </div>
+            <div class="card" style="padding:9px 14px;display:flex;align-items:center;gap:8px">
+              <span class="eb" style="margin-right:4px">Carbon Season, live</span>
+              <span class="pl"><i style="--c:#0C9B38"></i>velox.run · Guide · Live</span>
+              <span class="pl"><i style="--c:#0C9B38"></i>TikTok · 3 videos · Live</span>
+              <span class="pl"><i style="--c:#0C9B38"></i>Amazon · Listing v2 · Live</span>
+              <span class="pl"><i style="--c:#0C9B38"></i>runnersguide.net · Pitch sent</span>
+              <span class="pl"><i style="--c:#7A7F9E"></i>YouTube · Scheduled 14 May</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ovl">Brief it. Create it. Approve it. <em>Ship it.</em></div>
+      <div class="hud">C I R C <b>L</b> E</div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Launch. Brief it. Create it. Approve it. Ship it.</p><audio controls preload="none" src="audio/launch.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>Brief it. Create it. Approve it. Ship it.</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>« Brief it. Create it. Approve it. Ship it. » : quatre battements, l'étape suivante du fil s'allume à chacun.</li><li>Le brouillon se remplit ligne à ligne pendant « The Hub drafts » ; le bouton « Approve » passe au vert sur « Your teams decide ».</li><li>En bas, les pastilles passent une à une à « Live », un point vert à chaque fois.</li></ul></div>
+      <div class="state"><span class="chip st-sim">Simulé en grande partie</span><span>Le calendrier éditorial génère déjà des titres et des angles. Le brief complet, la validation et la publication sont à construire.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ formats ═════ -->
+<article class="board" id="@@ID:formats@@">
+  <div class="b-head"><span class="num">@@N:formats@@</span><h3>Launch · every format</h3><span class="tc">@@TC:formats@@</span><span class="act">L · Launch</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:formats@@"><div class="stage">
+      <div class="app" data-stage="launch">
+        <div class="main">
+          <div class="hd" data-title="Production" data-count="6 actions in flight"></div>
+          <div class="ct">
+            <div class="crumb">Production <i data-lucide="chevron-right"></i> Carbon Season <i data-lucide="chevron-right"></i> <b>First drafts</b></div>
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;min-height:0">
+              <div class="card" style="display:flex;flex-direction:column;gap:9px">
+                <div class="rw"><span class="pl"><i style="--c:#328BFF"></i>velox.run</span><span class="pl"><i style="--c:#6B4FE0"></i>AI answers</span><span class="sp chip s-done">Draft ready</span></div>
+                <p class="eb">Article</p>
+                <p class="dsp" style="font-size:17px;line-height:1.2">Is a carbon plate worth it for your first marathon?</p>
+                <p style="font-size:10.5px;color:#5B5878">1,640 words · 7 min read · Tom Peeters</p>
+                <div style="display:flex;flex-direction:column;gap:5px;font-size:11px;border-top:1px solid rgba(18,0,80,.10);padding-top:8px">
+                  <p><b style="font-weight:600;color:#5B5878">H2</b>&nbsp; What a carbon plate actually does</p><p><b style="font-weight:600;color:#5B5878">H2</b>&nbsp; Who it helps, and who it doesn’t</p><p><b style="font-weight:600;color:#5B5878">H2</b>&nbsp; Lab test: Aero 3 vs foam</p><p><b style="font-weight:600;color:#5B5878">H2</b>&nbsp; How to choose your first pair</p><p><b style="font-weight:600;color:#5B5878">FAQ</b>&nbsp; 6 questions, one short answer each</p>
+                </div>
+                <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:auto"><span class="chip t-tec">Article schema</span><span class="chip t-tec">FAQ schema</span><span class="chip t-tec">3 sourced stats</span></div>
+              </div>
+              <div class="card" style="display:flex;flex-direction:column;gap:9px">
+                <div class="rw"><span class="pl"><i style="--c:#0D8F8F"></i>TikTok</span><span class="pl"><i style="--c:#D94452"></i>YouTube Shorts</span><span class="sp chip s-done">Draft ready</span></div>
+                <p class="eb">Video script · 9:16 · 32 s</p>
+                <div style="display:grid;grid-template-columns:78px minmax(0,1fr);gap:10px">
+                  <div style="height:138px;border-radius:10px;background:linear-gradient(160deg,#120050,#1B0AB0 55%,#52B7FF);position:relative;overflow:hidden;border:3px solid #120050">
+                    <span style="position:absolute;left:6px;right:6px;bottom:8px;font:500 9.5px/1.2 var(--f-display);color:#FFFFFF">I ran 30 days in carbon.</span>
+                    <span style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:18px;height:3px;border-radius:2px;background:rgba(255,255,255,.4)"></span>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:6px;font-size:10.5px;line-height:1.35">
+                    <p><b style="font-weight:600" class="num">0–3 s</b> · Hook: “I ran 30 days in carbon. Here’s what happened.”</p>
+                    <p><b style="font-weight:600" class="num">3–12 s</b> · Lab clip: energy return, plated vs foam.</p>
+                    <p><b style="font-weight:600" class="num">12–26 s</b> · Day-1 run, pace on screen.</p>
+                    <p><b style="font-weight:600" class="num">26–32 s</b> · “Follow for day 2.”</p>
+                  </div>
+                </div>
+                <p style="font-size:10.5px;color:#5B5878;margin-top:auto">#marathontraining #carbonplate · episode 1 of 3</p>
+              </div>
+              <div class="card" style="display:flex;flex-direction:column;gap:9px">
+                <div class="rw"><span class="pl"><i style="--c:#B5722A"></i>Amazon</span><span class="sp chip s-done">Draft ready</span></div>
+                <p class="eb">Product listing · Aero 3</p>
+                <div style="font-size:11px;line-height:1.45;display:flex;flex-direction:column;gap:5px">
+                  <p style="color:#8E8BA8;text-decoration:line-through">Velox Aero 3 Men’s Running Shoe, Lightweight, Black</p>
+                  <p style="background:rgba(12,155,56,.10);border-radius:5px;padding:4px 6px;font-weight:500">Velox Aero 3 Carbon Plate Running Shoe for Marathon Racing, Men’s, Lightweight</p>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:5px;font-size:10.5px;line-height:1.4;border-top:1px solid rgba(18,0,80,.10);padding-top:8px">
+                  <p>• Full-length <mark style="background:rgba(12,155,56,.14);color:#120050;padding:0 2px">carbon plate</mark> for a stiffer, faster toe-off</p>
+                  <p>• <mark style="background:rgba(12,155,56,.14);color:#120050;padding:0 2px">+4.1% running economy</mark> in the Velox lab test</p>
+                  <p>• Built for <mark style="background:rgba(12,155,56,.14);color:#120050;padding:0 2px">first marathons</mark> and long runs at goal pace</p>
+                </div>
+                <p style="font-size:10.5px;margin-top:auto"><span class="up" style="font-weight:500">+12% click rate</span> <span style="color:#5B5878">· estimate</span></p>
+              </div>
+            </div>
+            <div class="card" style="padding:10px 16px;display:flex;align-items:center;gap:12px">
+              <span style="font-size:13px;color:#6B4FE0"><i data-lucide="sparkles"></i></span>
+              <span style="font-size:12px"><b style="font-weight:600">3 first drafts</b>, written in the Velox voice from one brief</span>
+              <span class="sp" style="display:flex;gap:6px"><span class="btn btn-o">Edit</span><span class="btn btn-p"><i data-lucide="send"></i>Send 3 for approval</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ovl">First drafts, <em>for every platform.</em></div>
+      <div class="hud">C I R C <b>L</b> E</div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">First drafts, for every platform.</p><audio controls preload="none" src="audio/formats.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>First drafts, for every platform.</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>Trois colonnes, trois battements : « An article. A video script. A product listing. » ; chacune se remplit comme si elle s'écrivait.</li><li>Sur la fiche Amazon, l'ancien titre se barre et le nouveau glisse dessous ; les mots ajoutés s'éclairent en vert.</li><li>Le téléphone du script TikTok joue la première image ; « Draft ready » s'allume sur les trois en même temps.</li></ul></div>
+      <div class="state"><span class="chip st-sim">Simulé</span><span>Le calendrier éditorial génère des titres et des angles ; la rédaction par format est à construire.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ 12 EVALUATE ═════ -->
+<article class="board" id="@@ID:evaluate@@">
+  <div class="b-head"><span class="num">@@N:evaluate@@</span><h3>Evaluate</h3><span class="tc">@@TC:evaluate@@</span><span class="act">E · Evaluate</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:evaluate@@"><div class="stage">
+      <div class="app" data-stage="evaluate">
+        <div class="main">
+          <div class="hd" data-title="Impact" data-count="Carbon Season · Mar → Aug"></div>
+          <div class="ct">
+            <div class="tabs"><span class="tab on"><i data-lucide="layout-grid"></i>Overview</span><span class="tab"><i data-lucide="list-checks"></i>By action</span><span class="tab"><i data-lucide="layers"></i>By platform</span><span class="sp"><span class="sel">Last 6 months <i data-lucide="chevron-down"></i></span><span class="btn btn-o"><i data-lucide="file-text"></i>Share report</span></span></div>
+            <div class="kp">@@EVAL_KPIS@@</div>
+            <div style="display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:12px;min-height:0">
+              <div class="card"><div class="rw"><div><p class="cht">Conversions from Search, week by week</p><p class="chs">Orders and sign-ups from Search visits, measured in GA4 · each flag is an action going live</p></div></div>@@CONV_CHART@@</div>
+              <div class="card"><p class="cht">Visibility by platform</p><p class="chs">Share of results where Velox appears · February vs August</p>@@DUMBBELL@@</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ovl">Visibility <em>↑</em>&nbsp; Traffic <em>↑</em>&nbsp; Conversions <em>↑</em></div>
+      <div class="hud">C I R C L <b>E</b></div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Evaluate. Visibility, up. Traffic, up. Conversions, up.</p><audio controls preload="none" src="audio/evaluate.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>Visibility ↑</span><span>Traffic ↑</span><span>Conversions ↑</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>La courbe des conversions se trace de gauche à droite ; à chaque drapeau (Amazon, TikTok, guide, ChatGPT), un petit éclat, et la courbe prend de la pente.</li><li>« Visibility, up. Traffic, up. Conversions, up. » : les trois premières tuiles comptent jusqu'à leur valeur, une par mot.</li><li>À droite, chaque point gris glisse vers son point bleu.</li></ul></div>
+      <div class="state"><span class="chip st-part">En partie construit</span><span>Positions, AI Overviews, visibilité IA et rapport client existent. Les conversions (GA4) et le lien entre une action et son effet sont simulés ; leur amorce réelle est le suivi à 90 jours du Content Pruning.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ traced ═════ -->
+<article class="board" id="@@ID:traced@@">
+  <div class="b-head"><span class="num">@@N:traced@@</span><h3>Evaluate · one action, traced</h3><span class="tc">@@TC:traced@@</span><span class="act">E · Evaluate</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:traced@@"><div class="stage">
+      <div class="app" data-stage="evaluate">
+        <div class="main">
+          <div class="hd" data-title="Impact" data-count="Carbon Season · Mar → Aug"></div>
+          <div class="ct">
+            <div class="crumb">Impact <i data-lucide="chevron-right"></i> By action <i data-lucide="chevron-right"></i> <b>Guide: Is a carbon plate worth it for your first marathon?</b></div>
+            <div class="card" style="display:flex;align-items:center;gap:14px;padding:12px 16px">
+              <div><p class="dsp" style="font-size:19px">Guide: Is a carbon plate worth it for your first marathon?</p><p class="chs" style="display:flex;gap:6px;align-items:center;margin-top:4px">@@AV_TP@@ Tom Peeters · velox.run/journal/carbon-plate-first-marathon</p></div>
+              <span class="sp" style="display:flex;gap:6px"><span class="chip s-done">Live since 12 May</span><span class="chip t-opt">carbon plate running shoes · 94</span></span>
+            </div>
+            <div class="kp">
+              <div class="card kpi"><p class="l">Google position</p><p class="n">3</p><p class="s">was 14 the week before launch</p></div>
+              <div class="card kpi"><p class="l">AI assistants citing the guide</p><p class="n">4 of 6</p><p class="s">first citation 2 June, Perplexity</p></div>
+              <div class="card kpi"><p class="l">Visits from the guide</p><p class="n">6,800</p><p class="s">a month · the estimate was 6,100</p></div>
+              <div class="card kpi"><p class="l">Conversions</p><p class="n"><span class="up">+312</span></p><p class="s">since launch, measured in GA4</p></div>
+            </div>
+            <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px;min-height:0">
+              <div class="card"><p class="cht">Google position, week by week</p><p class="chs">carbon plate running shoes · position 1 at the top</p>@@POS_CHART@@</div>
+              <div class="card" style="display:flex;flex-direction:column;gap:7px"><p class="cht">Where the guide is cited</p><p class="chs" style="margin-bottom:2px">AI assistants answering on this intent</p>@@CITED_LIST@@</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ovl">Every action, <em>traced to its impact.</em></div>
+      <div class="hud">C I R C L <b>E</b></div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Every action, traced to its impact.</p><audio controls preload="none" src="audio/traced.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>Every action, traced to its impact.</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>Depuis la courbe de la planche précédente, clic sur le drapeau « Guide live » : l'écran de l'action s'ouvre.</li><li>La courbe de position plonge de 14 à 3 juste après le drapeau ; les quatre assistants passent au vert un par un, à leur date.</li><li>La tuile « 6,800 » compte et dépasse le repère gris de l'estimation (6,100).</li></ul></div>
+      <div class="state"><span class="chip st-part">En partie construit</span><span>Positions et AI Overviews existent dans le Rank Tracker. Le lien action → effet a une amorce réelle, le suivi à 90 jours du Content Pruning ; les citations par assistant et les conversions sont simulées.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ report ═════ -->
+<article class="board" id="@@ID:report@@">
+  <div class="b-head"><span class="num">@@N:report@@</span><h3>Evaluate · the report</h3><span class="tc">@@TC:report@@</span><span class="act">E · Evaluate</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:report@@"><div class="stage" style="background:#F1F3FF">
+      <div style="position:absolute;inset:0 0 auto 0;height:52px;background:#FFFFFF;border-bottom:1px solid rgba(18,0,80,.10);display:flex;align-items:center;gap:12px;padding:0 24px;z-index:2">
+        <svg viewBox="0 0 40 40" style="width:24px;height:24px" aria-hidden="true"><use href="#hub-light"/></svg>
+        <span class="dsp" style="font-size:15px">OneSearch Hub</span><span style="color:#5B5878;font-size:12px">/ Velox / Search impact report</span>
+        <span class="sp" style="display:flex;gap:6px"><span class="btn btn-o"><i data-lucide="download"></i>PDF</span><span class="btn btn-p"><i data-lucide="share-2"></i>Share</span></span>
+      </div>
+      <div style="position:absolute;left:0;right:0;top:52px;height:500px;background:linear-gradient(125deg,#1B0AB0 0%,#150473 45%,#120050 100%);overflow:hidden">
+        <div style="position:absolute;inset:0;background:radial-gradient(640px 420px at 88% 0%,rgba(82,183,255,.35),rgba(82,183,255,0) 62%)"></div>
+        <div style="position:absolute;left:120px;right:120px;top:46px">
+          <p style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#52B7FF">Search impact report · Q2 2026</p>
+          <p class="dsp" style="font-size:54px;line-height:1.05;color:#FFFFFF;margin-top:16px">Velox · Carbon Season</p>
+          <p style="font-size:15px;color:rgba(241,243,255,.72);margin-top:10px"><span style="font-family:var(--f-mono)">velox.run</span> · March to August 2026</p>
+          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:34px">
+            <div style="border:1px solid rgba(241,243,255,.18);background:rgba(255,255,255,.06);border-radius:16px;padding:16px 18px"><p style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#52B7FF">Search visibility</p><p class="dsp num" style="font-size:40px;color:#FFFFFF;margin-top:8px">27%</p><p style="font-size:12px;color:rgba(241,243,255,.7)">from 10% in February</p></div>
+            <div style="border:1px solid rgba(241,243,255,.18);background:rgba(255,255,255,.06);border-radius:16px;padding:16px 18px"><p style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#52B7FF">Search traffic</p><p class="dsp num" style="font-size:40px;color:#FFFFFF;margin-top:8px">+64%</p><p style="font-size:12px;color:rgba(241,243,255,.7)">vs the previous 90 days</p></div>
+            <div style="border:1px solid rgba(241,243,255,.18);background:rgba(255,255,255,.06);border-radius:16px;padding:16px 18px"><p style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#52B7FF">Conversions</p><p class="dsp num" style="font-size:40px;color:#FFFFFF;margin-top:8px">+38%</p><p style="font-size:12px;color:rgba(241,243,255,.7)">@@CONV_PAIR@@ from Search</p></div>
+            <div style="border:1px solid rgba(241,243,255,.18);background:rgba(255,255,255,.06);border-radius:16px;padding:16px 18px"><p style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#52B7FF">Cited by AI</p><p class="dsp num" style="font-size:40px;color:#FFFFFF;margin-top:8px">22%</p><p style="font-size:12px;color:rgba(241,243,255,.7)">of AI answers, from 4%</p></div>
+          </div>
+          <div style="border-left:3px solid #52B7FF;padding:4px 0 4px 16px;margin-top:28px"><p style="font-size:17px;color:#FFFFFF">Visibility nearly tripled in six months. The carbon plate guide alone now brings 6,800 visits a month.</p></div>
+        </div>
+      </div>
+      <div style="position:absolute;left:120px;right:120px;top:574px;display:flex;gap:8px">
+        <span style="padding:7px 14px;border-radius:999px;background:#FFFFFF;border:1px solid rgba(18,0,80,.12);font-size:12.5px;color:#1B0AB0">Visibility</span><span style="padding:7px 14px;border-radius:999px;background:#FFFFFF;border:1px solid rgba(18,0,80,.12);font-size:12.5px;color:#1B0AB0">Actions and results</span><span style="padding:7px 14px;border-radius:999px;background:#FFFFFF;border:1px solid rgba(18,0,80,.12);font-size:12.5px;color:#1B0AB0">By platform</span><span style="padding:7px 14px;border-radius:999px;background:#FFFFFF;border:1px solid rgba(18,0,80,.12);font-size:12.5px;color:#1B0AB0">AI answers</span><span style="padding:7px 14px;border-radius:999px;background:#FFFFFF;border:1px solid rgba(18,0,80,.12);font-size:12.5px;color:#1B0AB0">Next quarter</span>
+      </div>
+      <div class="card" style="position:absolute;right:24px;top:60px;width:300px;padding:14px;box-shadow:0 24px 50px -16px rgba(18,0,80,.45);z-index:3;display:flex;flex-direction:column;gap:10px">
+        <p class="cht">Share with your leadership</p>
+        <div style="display:flex;gap:6px"><span style="flex:1;height:30px;border:1px solid rgba(18,0,80,.14);border-radius:6px;display:flex;align-items:center;padding:0 9px;font:11px var(--f-mono);color:#5B5878;overflow:hidden;white-space:nowrap">…/report/velox-q2</span><span class="btn btn-p">Copy link</span></div>
+        <p style="font-size:11px;color:#5B5878;display:flex;align-items:center;gap:6px"><span class="tog"></span>Anyone with the link can read it, no login</p>
+        <p style="font-size:11px;color:#5B5878;display:flex;align-items:center;gap:6px"><i data-lucide="calendar"></i>Next report: 1 December, sent automatically</p>
+        <p style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:#0a812f;font-weight:500"><i data-lucide="circle-check"></i>Link copied</p>
+      </div>
+      <div class="ovl">Share it. <em>In one click.</em></div>
+      <div class="hud">C I R C L <b>E</b></div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Share it. In one click.</p><audio controls preload="none" src="audio/report.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>Share it. In one click.</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>Clic sur « Share » : la couverture du rapport se compose derrière (dégradé indigo, quatre grands chiffres qui comptent).</li><li>Le panneau de partage s'ouvre, « Copy link » se presse, « Link copied » passe au vert, sur « In one click ».</li></ul></div>
+      <div class="state"><span class="chip st-part">En partie construit</span><span>Le rapport client existe : lien sans compte, sections choisies, couverture indigo. L'envoi automatique et le contenu tous canaux sont simulés.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ 13 LOOP ═════ -->
+<article class="board" id="@@ID:circle@@">
+  <div class="b-head"><span class="num">@@N:circle@@</span><h3>The circle</h3><span class="tc">@@TC:circle@@</span><span class="act">La boucle</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:circle@@"><div class="stage dk">
+      @@LOOP@@
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">Every result feeds the next circle.</p><audio controls preload="none" src="audio/circle.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>Collect. Identify. Recommend. Coordinate. Launch. Evaluate. Repeat.</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>Dézoom depuis le rapport : les écrans du film rapetissent et prennent leur place dans l'anneau, un par étape.</li><li>Une impulsion lumineuse fait le tour de l'anneau, d'Evaluate vers Collect, et repart.</li><li>Les six mots s'affichent au centre en rythme avec l'impulsion ; « Repeat. » en bleu.</li></ul></div>
+      <div class="state"><span class="chip st-card">Carton</span><span>Les vignettes reprennent un écran par étape : planches @@N:collect@@, @@N:score@@, @@N:recommend@@, @@N:coordinate@@, @@N:launch@@ et @@N:evaluate@@.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ 14 ═════ -->
+<article class="board" id="@@ID:onehub@@">
+  <div class="b-head"><span class="num">@@N:onehub@@</span><h3>One Search. One Hub.</h3><span class="tc">@@TC:onehub@@</span><span class="act">La fin</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:onehub@@"><div class="stage dk">
+      <div class="c-center">
+        <p class="huge" style="font-size:104px">One Search.<br><em>One Hub.</em></p>
+        <div style="display:flex;align-items:center;gap:14px;margin-top:54px">
+          <svg viewBox="0 0 40 40" style="width:44px;height:44px" aria-hidden="true"><use href="#hub-dark"/></svg>
+          <div style="text-align:left"><p class="dsp" style="font-size:26px;color:#FFFFFF;line-height:1">OneSearch Hub</p><div style="display:flex;align-items:center;gap:6px;margin-top:5px;font-size:12px;color:rgba(241,243,255,.7)">by <svg viewBox="0 0 932 126" style="width:88px;height:12px;color:#FFFFFF"><use href="#mb-logo"/></svg></div></div>
+        </div>
+      </div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">OneSearch Hub. One Search. One Hub.</p><audio controls preload="none" src="audio/onehub.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>One Search. One Hub.</span><span>OneSearch Hub by MentionBox</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>L'anneau de la planche @@N:circle@@ se referme et se pose en logo.</li><li>« One Search. » puis « One Hub. », calés sur la voix ; le reste en silence.</li></ul></div>
+      <div class="state"><span class="chip st-card">Carton</span><span>Signature.</span></div>
+    </div>
+  </div>
+</article>
+
+<!-- ═════ 15 ═════ -->
+<article class="board" id="@@ID:cta@@">
+  <div class="b-head"><span class="num">@@N:cta@@</span><h3>Be one of them</h3><span class="tc">@@TC:cta@@</span><span class="act">Appel à l'action</span></div>
+  <div class="b-body">
+    <div class="frame" tabindex="0" role="button" aria-label="Agrandir la planche @@N:cta@@"><div class="stage dk">
+      <div style="position:absolute;left:96px;top:0;bottom:0;width:700px;display:flex;flex-direction:column;justify-content:center">
+        <p style="font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#52B7FF;margin-bottom:26px">OneSearch Hub · early access</p>
+        <p class="huge" style="font-size:66px">The brands that move first will own Search.</p>
+        <p class="huge" style="font-size:66px;margin-top:10px"><em>Be one of them.</em></p>
+        <div style="display:flex;align-items:center;gap:14px;margin-top:40px">
+          <span style="background:#328BFF;color:#120050;font:500 20px var(--f-display);letter-spacing:-.02em;padding:16px 26px;border-radius:12px">Book your private demo →</span>
+          <span style="font:15px var(--f-mono);color:rgba(241,243,255,.75)">mentionbox.be</span>
+        </div>
+      </div>
+      <div style="position:absolute;right:110px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:16px">
+        <div style="background:#FFFFFF;border-radius:20px;padding:22px;box-shadow:0 30px 80px -20px rgba(82,183,255,.45)">@@QR@@</div>
+        <p style="font-size:15px;color:rgba(241,243,255,.8)">Scan to book your demo</p>
+      </div>
+    </div></div>
+    <div class="notes">
+      <div><p class="lbl">Voix off</p><p class="vo-t">The brands that move first will own Search. Be one of them.</p><audio controls preload="none" src="audio/cta.mp4"></audio></div>
+      <div><p class="lbl">À l'écran</p><p class="ose"><span>The brands that move first will own Search.</span><span>Be one of them.</span><span>Book your private demo</span></p></div>
+      <div><p class="lbl">Mouvement</p><ul><li>Image tenue : c'est celle qui reste à l'écran pendant que l'orateur reprend la parole.</li><li>Le code QR pulse une seule fois à l'apparition.</li></ul></div>
+      <div class="state"><span class="chip st-sim">À fixer</span><span>Le code QR est un faux, pour la mise en page, et l'adresse de destination reste à choisir.</span></div>
+    </div>
+  </div>
+</article>
+</section>
+
+<section class="bloc" id="script">
+  <h2>La voix off, d'un seul tenant</h2>
+  <p class="chapo">@@WORDS@@ mots pour @@DURTXT@@. Voix « Algieba » de Gemini, la plus grave des sept voix essayées, au débit rapide. Le montage est calé sur 124 BPM : chaque planche dure un nombre entier de temps, et la voix mène le rythme. Le lecteur de la couverture joue la bande-son complète du film, avec la musique de travail.</p>
+  <div class="script"><div class="script-scroll"><table>
+    <thead><tr><th>Temps</th><th>Planche</th><th>Voix off</th></tr></thead>
+    <tbody>@@SCRIPT_ROWS@@</tbody>
+  </table></div></div>
+</section>
+
+<section class="bloc" id="notes">
+  <h2>Notes de production</h2>
+  <div class="grid2">
+    <div class="note"><h3>Données</h3><ul><li>Velox est une marque de running fictive (<code>velox.run</code>). Tous les chiffres, personnes, agences et domaines concurrents sont inventés.</li><li>Les plateformes apparaissent en pastilles avec leur nom, sans logo.</li><li>Les chiffres restent cohérents d'un écran à l'autre : 12,480 intentions, score 94, lancement le 12 mai.</li></ul></div>
+    <div class="note"><h3>Charte</h3><ul><li>La DA de l'outil : encre <code>#120050</code>, primaire <code>#1B0AB0</code>, action <code>#328BFF</code>, accent <code>#52B7FF</code>, fond <code>#F7F8FF</code>.</li><li>Swiza 500 pour les titres et les chiffres, General Sans pour le texte, Geist Mono pour les domaines.</li><li>Les graphes reprennent les palettes du Rank Tracker : le client en <code>#328BFF</code>, les rampes bleues pour les scores.</li></ul></div>
+    <div class="note"><h3>Pour l'animation avec Claude Code</h3><ul><li>Chaque plan est un bloc HTML de 1280 × 720 (<code>.stage</code>) : il se capture tel quel, ou se reprend comme base d'animation.</li><li>Le repère CIRCLE en bas à droite suit tout le film à partir de la planche 06.</li><li>Les mouvements décrits sont des intentions, pas des réglages : la courbe d'animation de la marque est <code>cubic-bezier(0.22, 1, 0.36, 1)</code>.</li></ul></div>
+    <div class="note"><h3>Ce qui reste ouvert</h3><ul><li>L'adresse et le code QR de l'appel à l'action.</li><li>La musique : la piste du film est provisoire, à remplacer par un titre sous licence.</li><li>Le choix de la marque de démonstration : Velox, ou une marque réelle si vous l'assumez.</li></ul></div>
+  </div>
+</section>
+
+</div>
+
+<div class="lb" id="lb" hidden>
+  <div class="lb-box" id="lb-box"></div>
+  <div class="lb-bar"><button type="button" id="lb-prev">← Précédente</button><span id="lb-cap"></span><button type="button" id="lb-next">Suivante →</button><button type="button" id="lb-close">Fermer</button></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+(function(){
+  var W=1280,H=720;
+  var NAV=[["collect","database","Collect","C","12"],["identify","target","Identify","I","38"],["recommend","sparkles","Recommend","R","10"],["coordinate","users","Coordinate","C","42"],["launch","rocket","Launch","L","6"],["evaluate","trending-up","Evaluate","E","+38%"]];
+  document.querySelectorAll(".app").forEach(function(app){
+    var st=app.getAttribute("data-stage");
+    var items=NAV.map(function(n){
+      return '<div class="it'+(n[0]===st?' on':'')+'"><span class="ico"><i data-lucide="'+n[1]+'"></i></span><span class="lt">'+n[3]+'</span>'+n[2]+'<span class="c">'+n[4]+'</span></div>';
+    }).join("");
+    var sb=document.createElement("aside");
+    sb.className="sb";
+    sb.innerHTML='<div class="back"><i data-lucide="arrow-left"></i>All brands</div>'+
+      '<div class="lock"><svg class="mark" viewBox="0 0 40 40"><use href="#hub-light"/></svg><div><b>OneSearch Hub</b><small>by <svg viewBox="0 0 932 126"><use href="#mb-logo"/></svg></small></div></div>'+
+      '<div class="brand"><b>Velox</b><code>velox.run</code></div>'+
+      '<div class="it'+(st==="overview"?' on':'')+'"><span class="ico"><i data-lucide="layout-grid"></i></span>Overview</div>'+
+      '<p class="sec">CIRCLE</p>'+items+
+      '<div class="foot"><div class="it"><span class="ico"><i data-lucide="settings"></i></span>Settings</div><p class="ver">OneSearch Hub v1.0</p></div>';
+    app.insertBefore(sb,app.firstChild);
+    var hd=app.querySelector(".hd");
+    if(hd){
+      hd.innerHTML='<span class="tg"><i data-lucide="panel-left"></i></span><span class="fav">V</span><code>velox.run</code><span class="ttl">'+hd.getAttribute("data-title")+'</span><span class="cnt">'+hd.getAttribute("data-count")+'</span>'+
+        '<span class="r"><span class="btn btn-o"><i data-lucide="file-text"></i>Client report</span><span class="btn btn-o"><i data-lucide="languages"></i>EN</span><span class="btn btn-o btn-i"><i data-lucide="sun"></i></span></span>';
+    }
+  });
+  try{ if(window.lucide) window.lucide.createIcons({attrs:{"stroke-width":1.5}}); }catch(e){}
+
+  document.querySelectorAll("[data-thumb]").forEach(function(t){
+    var src=document.querySelector("#"+t.getAttribute("data-thumb")+" .stage");
+    if(!src) return;
+    var c=src.cloneNode(true);
+    c.querySelectorAll(".ovl,.hud").forEach(function(n){n.remove();});
+    c.style.zoom=parseFloat(t.getAttribute("data-w"))/W;
+    t.appendChild(c);
+  });
+
+  var frames=[].slice.call(document.querySelectorAll(".frame"));
+  /* Mise à l'échelle par `zoom` et non par `transform` : sous un `transform`, Chrome garde
+     la mise en page des textes SVG calculée à l'échelle du premier rendu, et les étiquettes
+     des graphes se tassent vers le coin. `zoom` refait la mise en page à chaque taille. */
+  function fit(){ frames.forEach(function(f){ f.style.setProperty("--s", f.clientWidth/W); }); }
+  fit();
+  if(window.ResizeObserver){ var ro=new ResizeObserver(fit); frames.forEach(function(f){ro.observe(f);}); }
+  else window.addEventListener("resize",fit);
+
+  var lb=document.getElementById("lb"),box=document.getElementById("lb-box"),cap=document.getElementById("lb-cap"),cur=-1,last=null;
+  function show(i){
+    cur=(i+frames.length)%frames.length;
+    var f=frames[cur],s=Math.min(window.innerWidth*0.96/W,(window.innerHeight-90)/H);
+    box.innerHTML="";
+    box.style.width=(W*s)+"px"; box.style.height=(H*s)+"px";
+    var c=f.querySelector(".stage").cloneNode(true);
+    c.style.zoom=s;
+    box.appendChild(c);
+    var b=f.closest(".board");
+    cap.textContent=b.querySelector(".num").textContent+" · "+b.querySelector("h3").textContent+" · "+b.querySelector(".tc").textContent;
+    lb.hidden=false;
+  }
+  function close(){ lb.hidden=true; box.innerHTML=""; if(last) last.focus(); }
+  frames.forEach(function(f,i){
+    f.addEventListener("click",function(){ last=f; show(i); });
+    f.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); last=f; show(i);} });
+  });
+  document.getElementById("lb-prev").addEventListener("click",function(){show(cur-1);});
+  document.getElementById("lb-next").addEventListener("click",function(){show(cur+1);});
+  document.getElementById("lb-close").addEventListener("click",close);
+  lb.addEventListener("click",function(e){ if(e.target===lb) close(); });
+  document.addEventListener("keydown",function(e){
+    if(lb.hidden) return;
+    if(e.key==="Escape") close();
+    else if(e.key==="ArrowRight") show(cur+1);
+    else if(e.key==="ArrowLeft") show(cur-1);
+  });
+  window.addEventListener("resize",function(){ if(!lb.hidden) show(cur); });
+})();
+</script>
+<script>
+/* Téléchargement du film : la page ne peut pas lancer de téléchargement elle-même ; la
+   capacité `downloads` demande la confirmation du lecteur. Sans elle, les boutons restent cachés. */
+(async function () {
+  var boxes = document.querySelectorAll(".dl");
+  if (!boxes.length) return;
+  var dl = null;
+  try { dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null; } catch (e) { dl = null; }
+  if (!dl) return;
+  var MSG = { declined: "Téléchargement annulé.", rate_limited: "Une demande est déjà ouverte : confirmez-la ou fermez-la, puis réessayez.", too_large: "Fichier trop lourd pour cet appareil : prenez la version 720p." };
+  boxes.forEach(function (box) {
+    box.hidden = false;
+    var msg = box.querySelector(".dl-msg");
+    box.querySelectorAll("button").forEach(function (btn) {
+      btn.addEventListener("click", async function () {
+        var all = document.querySelectorAll(".dl button");
+        all.forEach(function (b) { b.disabled = true; });
+        msg.textContent = "Préparation du fichier…";
+        try {
+          var r = await fetch(btn.getAttribute("data-src"));
+          if (!r.ok) throw { code: "fetch", message: String(r.status) };
+          var blob = await r.blob();
+          msg.textContent = "Confirmez l'enregistrement dans la fenêtre qui s'ouvre.";
+          await dl.save({ filename: btn.getAttribute("data-name"), data: blob });
+          msg.textContent = "Enregistré dans vos téléchargements.";
+        } catch (e) {
+          var c = e && e.code;
+          msg.textContent = MSG[c] || ("Le téléchargement n'a pas abouti" + (c ? " (" + c + ")" : "") + ". Le fichier reste disponible sur le serveur, dans depots/film.");
+        } finally {
+          all.forEach(function (b) { b.disabled = false; });
+        }
+      });
+    });
+  });
+})();
+</script>
