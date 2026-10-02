@@ -14,6 +14,9 @@ Deux montages partagent les mêmes écrans, la même voix et le même minutage :
 
 Toutes les données sont fictives (marque « Velox », personnes, chiffres).
 
+> **`onesearch-hub-film-code.zip`** : le même code en archive, figé au 2 octobre 2026. Le
+> dépôt fait foi ; GitHub produit aussi une archive à jour par *Code › Download ZIP*.
+
 ## Installer
 
 Il faut Node 20 ou plus et Python 3.10 ou plus.
